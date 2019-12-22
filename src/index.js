@@ -9,15 +9,21 @@ import {processGauge, getWOJSON} from './DataParsers.js'
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Waterchart from './components/waterchart.js'
-import ChartistGraph from 'react-chartist';
-import Line from './components/chartist-components.js'
+// import ChartistGraph from 'react-chartist';
+// import Line from './components/chartist-components.js'
 import RechartWaterChart from './components/rechart-components.js'
 import WaterTabs from './components/watertabs.js'
-import {Point, PointList, MarkdownFromUrl, RiverTabPanel} from './components/watertabs.js'
+// import {Point, PointList, MarkdownFromUrl, RiverTabPanel} from './components/watertabs.js'
+import MarkdownFromUrl from './components/markdownFromUrl.js'
 import Journal from './components/journal.js'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-const Chartist = require('chartist')
+import {
+  Router,
+  Link
+} from "@reach/router";
+
+// const Chartist = require('chartist')
 const spots = Rivers;
 
 
@@ -27,24 +33,39 @@ function App(props) {
     "takeout": [43.662701, -80.453265] 
   }
   return (
-    <div>
-      <h1>S.O. Shreds</h1>
-      <Tabs>
-        <TabList>
-          <Tab>Current Conditions</Tab>
-          <Tab>Journal</Tab>
-        </TabList>
-        <TabPanel>
-          <WaterTabs rivers={Rivers}/>
-        </TabPanel>
-        <TabPanel>
-          <Journal rivers={Rivers}/>
-        </TabPanel>
-      {/* <MarkdownFromUrl url='./test.md'/> */}
-      {/* <PointList points={points}/> */}
-    
-    </Tabs>
+
+      <div>
+        <nav className="nav bg-light">
+          <Link className="brand" to="/">S.O. Shreds</Link>
+          <Link to="/rivers">Rivers: Current Levels</Link>
+          <Link to="/journal">Journal</Link>
+          <Link to="/about">About</Link>
+        </nav>
+
+        <Router>
+          <WaterTabs path="rivers" rivers={Rivers}/>
+          <Journal path="journal" rivers={Rivers}/>
+          <MarkdownFromUrl path="about" url="descriptions/about.md"/>
+    </Router>
     </div>
+    // <div>
+    //   <h1>S.O. Shreds</h1>
+    //   <Tabs>
+    //     <TabList>
+    //       <Tab>Current Conditions</Tab>
+    //       <Tab>Journal</Tab>
+    //     </TabList>
+    //     <TabPanel>
+    //       <WaterTabs rivers={Rivers}/>
+    //     </TabPanel>
+    //     <TabPanel>
+    //       <Journal rivers={Rivers}/>
+    //     </TabPanel>
+    //   {/* <MarkdownFromUrl url='./test.md'/> */}
+    //   {/* <PointList points={points}/> */}
+    
+    // </Tabs>
+    // </div>
   )
 }
 
