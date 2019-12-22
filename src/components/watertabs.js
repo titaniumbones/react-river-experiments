@@ -34,15 +34,16 @@ export class PointList extends React.Component {
     this.state = {
 
     }
-  }
+  } 
   render() {
+    const pEntries = Object.entries(this.props.points)
     return (
       <div>
       <h2 value="Map Links">Map Links</h2>
       <ul>
-      {this.props.points.length > 0 ?
-       Object.entries(this.props.points).map(point => {
-          if (point[0]) return <Point name={point[0]} location={point[1]}/>
+      {pEntries.length > 0 ?
+       pEntries.map(point => {
+          return <Point name={point[0]} location={point[1]}/>
        }) :
        <li>No Point Locations Provided</li>
       } 
@@ -73,7 +74,7 @@ export class RiverTabPanel extends React.Component {
     return (
       <div>
         <Waterchart seriesdata={this.state.latestData}/>
-        {this.state.points && <PointList points={this.state.points}/>}
+        {this.props.river.points && <PointList points={this.props.river.points}/>}
         <MarkdownFromUrl url={`./descriptions/${this.state.slug}.md`}/>
         </div>
     )
