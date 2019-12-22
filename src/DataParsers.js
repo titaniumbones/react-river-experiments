@@ -55,7 +55,7 @@ async function processWiskiData (spot, last) {
         start = moment(last).subtract(4, 'days').format('YYYY-MM-DD'),
         end = moment(last).format('YYYY-MM-DD'),
         url = `${baseURL + baseParams}&ts_id=${id}&from=${start}&to=${end}&dateformat=UNIX`;
-
+  console.log('KIWIPROCESS', spot.gaugeType, spot, url)
   return fetch(url)
       .then ( async (res) => {
         console.log(res.headers.get('Content-Type'))
@@ -88,11 +88,12 @@ async function processWiskiData (spot, last) {
 
 // let proxy = 'https://cors-anywhere.herokuapp.com/';
 async function getWOJSON (stationData, last, needCors = true) {
+  console.log('RIVER', stationData)
   let start = moment(last).subtract(4, 'days').format('YYYY-MM-DD'),
       end = moment(last).format('YYYY-MM-DD'),
       headers = {Origin: "localhost"},
       params = `?param1=47&start_date=${start}&end_date=${end}&station=${stationData["gaugeID"]}`,
-      cors = `http://localhost:9090/`, // `https://cors-anywhere.herokuapp.com/`
+      cors = `https://hackinghistory.ca:9090/`, // `https://cors-anywhere.herokuapp.com/`
       url = `https://wateroffice.ec.gc.ca/services/real_time_graph/json/inline${params}`;
   if (needCors) {url = `${cors}${url}`;}
   console.log(url);
@@ -107,8 +108,8 @@ async function getWOJSON (stationData, last, needCors = true) {
 }
 
 
-async function processWOData (spot) {
-  return getWOJSON(spot)
+async function processWOData (spot, latest) {
+  return getWOJSON(spot, latest)
     .then ( function (rawData)  {
       return rawData.map((item) => {
         let meta = {};
@@ -123,6 +124,7 @@ async function processWOData (spot) {
         return itemObj
       })
     })
+    .catch( (err) => [])
       
 }
 
