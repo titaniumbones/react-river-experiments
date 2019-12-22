@@ -43,7 +43,10 @@ const streetsville = {
       elora = {
         name: "Elora Gorge at Shand Dam",
         gaugeType: "grca",
-        gaugeID: 'Shand Dam Discharge',
+        gaugeID: 7405042,
+        //gaugeID: 11189042,
+        //gaugeID: 14389,
+        //gaugeID: 'Shand Dam Discharge',
         "units": "cms",
         slug: "grand",
         points: {
