@@ -22,6 +22,33 @@ import {
   Router,
   Link
 } from "@reach/router";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+const initialState = {
+  journal: {
+    entries: [
+      {spot: 'irvine', date: 'December 10, 2019', id: 0, entry:'Moderate Level.  somewhat sticky hole at the bottom of three ledges, Mike flipped and the hole was big enough to hold a solo canoe.  Flippy hole at the river-right bottom of Triple Drop, flipped both me and Ian. River left, center both too low torun; pothole in trible drop river right clearly visible as a spouting rooster tail. Ledges clearly visible within the dam waterfall, deifnitely below a safe level for me to run.  Canyon section no harder than class II,but still continuous to the junction with the Gorge section.  Gorge fairly mellow, Chute at a good level.'}],
+    current: {spot:'', date:'', entry:'' }
+  }
+}
+
+const store = createStore(mainReducer);
+function mainReducer(state=initialState, action) {
+  // just gonna leave this blank for now
+  // which is the same as `return undefined;`
+  switch (action.type) {
+  case 'ADD_ENTRY':
+    return {...state, 
+      journal : {
+        entries: [action.payload, ...state.journal.entries]
+      }
+    }
+    
+  }
+  return state
+}
+
 
 // const Chartist = require('chartist')
 const spots = Rivers;
@@ -34,7 +61,7 @@ function App(props) {
   }
   return (
 
-      <div>
+    <Provider store={store}>
         <nav className="nav bg-light">
           <Link className="brand" to="/">S.O. Shreds</Link>
           <Link to="/rivers">Rivers: Current Levels</Link>
@@ -47,7 +74,7 @@ function App(props) {
           <Journal path="journal" rivers={Rivers}/>
           <MarkdownFromUrl path="about" url="descriptions/about.md"/>
     </Router>
-    </div>
+    </Provider>
     // <div>
     //   <h1>S.O. Shreds</h1>
     //   <Tabs>

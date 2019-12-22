@@ -12,11 +12,21 @@ import Waterchart from '../components/waterchart.js'
 import ChartistGraph from 'react-chartist';
 import Line from '../components/chartist-components.js'
 import RechartWaterChart from '../components/rechart-components.js'
-import WaterTabs from '../components/watertabs.js'
+// import WaterTabs from '../components/watertabs.js'
 import {Point, PointList, MarkdownFromUrl, RiverTabPanel} from '../components/watertabs.js'
-const Chartist = require('chartist')
+import { connect } from 'react-redux';
+
+
 const spots = Rivers;
 
+// 'state' is actually *redux store*,
+// which is I guess a 'state', but obvs *not*
+// plain old react state.  
+function mapStateToProps(state) {
+  return {
+    entries: state.journal.entries
+  };
+}
 
 
 
@@ -30,30 +40,24 @@ function getSpot (slug) {
   return value;
 }
 
-export default class Journal extends React.Component {
+export class Journal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      entries: [{spot: 'uppercredit', date: 'July 1, 2018', entry:'so nice'},
-                {spot: 'irvine', date: 'December 10, 2019', entry:'Moderate Level.  somewhat sticky hole at the bottom of three ledges, Mike flipped and the hole was big enough to hold a solo canoe.  Flippy hole at the river-right bottom of Triple Drop, flipped both me and Ian. River left, center both too low torun; pothole in trible drop river right clearly visible as a spouting rooster tail. Ledges clearly visible within the dam waterfall, deifnitely below a safe level for me to run.  Canyon section no harder than class II,but still continuous to the junction with the Gorge section.  Gorge fairly mellow, Chute at a good level.'}],
-      current: {spot:'', date:'', entry:'' }
-    }
   }
 
   handleSubmit = (entry) => {
     console.log(entry);
-    this.setState ({current: entry,
-                    entries: [entry, ...this.state.entries]})
-    console.log('ENTRIES', this.state.entries);
+    this.props.dispatch({type: 'ADD_ENTRY',
+                         payload: entry})
   }
   
   render() {
     console.log("rendering main journal")
-    console.log(this.state.entries)
+    console.log(this.props.entries)
     return (
       <div className="journal">
         <JournalForm handleSubmit={this.handleSubmit}/>
-        <JournalAllEntries entries={this.state.entries}/>
+        {this.props.entries && <JournalAllEntries entries={this.props.entries}/>}
       </div>
     )
   }
@@ -194,3 +198,6 @@ class JournalForm extends React.Component {
     );
   }
 }
+
+
+export default connect(mapStateToProps)(Journal)
