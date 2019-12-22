@@ -3,6 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './rivers.css';
 import Rivers from  './rivers.js';
 import {processGauge, getWOJSON} from './DataParsers.js'
 // import App from './App';
@@ -14,6 +15,8 @@ import RechartWaterChart from './components/rechart-components.js'
 import WaterTabs from './components/watertabs.js'
 import {Point, PointList, MarkdownFromUrl, RiverTabPanel} from './components/watertabs.js'
 import Journal from './components/journal.js'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 const Chartist = require('chartist')
 const spots = Rivers;
 
@@ -26,10 +29,21 @@ function App(props) {
   return (
     <div>
       <h1>S.O. Shreds</h1>
-      <WaterTabs rivers={Rivers}/>
+      <Tabs>
+        <TabList>
+          <Tab>Current Conditions</Tab>
+          <Tab>Journal</Tab>
+        </TabList>
+        <TabPanel>
+          <WaterTabs rivers={Rivers}/>
+        </TabPanel>
+        <TabPanel>
+          <Journal rivers={Rivers}/>
+        </TabPanel>
       {/* <MarkdownFromUrl url='./test.md'/> */}
       {/* <PointList points={points}/> */}
-      <Journal rivers={Rivers}/>
+    
+    </Tabs>
     </div>
   )
 }
