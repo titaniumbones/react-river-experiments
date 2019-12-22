@@ -2,7 +2,33 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ChartistGraph from 'react-chartist';
 import moment from 'moment'
-const Chartist = require('chartist')
+// import {Resizable, ResizableBox} from 'react-resizable'
+// const Chartist=require( '../libraries/chartist-with-segments.js')
+import Segment from '../libraries/chartist-segmented-line.js'
+import Chartist from 'chartist';
+import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+import '../../node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css'
+
+// initialize the segment chart type
+Segment(this || global, Chartist)
+
+
+function generateTooltip (meta, value) {
+  // console.log(meta);
+  // console.log('THIS IS THIS', value);
+  const p = Chartist.deserialize(meta),
+        units = p.units;
+  // console.log(p, units, value);
+  //console.log (p.quality, p.direction,(p.wvd ? "wave" : "wind"), (p.wvd || p.wdir));
+  const date = moment(p.data[0]),
+        magnitude =  p.data[1].toFixed(2);
+  let dateSpan = `<span class="chartist-tooltip-value">${date.format('MM-D HH:mm')}</span>`,
+      magSpan = `<span>${magnitude} ${units}; </span>`,
+      text = `<span class="chartist-tooltip-value>${date.format('MM-DD - HH:mm')}<br>${magnitude}</span>`,
+      output = `<div class="${p.quality} container">${magSpan}<br>${dateSpan}</div>`
+  return output
+}
+
 
 export default class Waterchart extends Component {
   constructor(props) {
@@ -17,7 +43,7 @@ export default class Waterchart extends Component {
       },
       options: {
         scaleMinSpace: 200,
-        showArea: false,
+        showArea: true,
         axisX: {
           type: Chartist.FixedScaleAxis,
           divisor: 15,
@@ -25,9 +51,20 @@ export default class Waterchart extends Component {
             return moment(value).format('MM-DD [\n] HH:mm')
           }
         },
-        // axisY: {scaleMinSpace: 100}
+        axisY: {scaleMinSpace: 200},
+        plugins: [
+          ChartistTooltip({
+            tooltipFnc: generateTooltip, 
+            anchorToPoint: false,
+            appendToBody: false,
+            
+            //metaIsHTML: true
+          })
+        ],
+        height: this.props.height,
+        width: this.props.width,
       },
-      type: 'Line',
+      type: 'SegmentedLine',
       
     }
   }
@@ -39,64 +76,62 @@ export default class Waterchart extends Component {
          data: this.props.seriesdata}
       ]}})
   }
-  // stolen from https://github.com/fraserxu/react-chartist/blob/9f1bebca016552375c041785babefbb9aaf351a9/index.js#L36
-  // not using for now astrying to build on react-chartist directly
-  // updateChart = (props) => {
-  //   let Chartist = require('chartist');
-  //   console.log(props)
-  //   let data  = this.props.data;
-  //   let type = props.type || 'Line'
-  //   let options = props.options || {};
-  //   let responsiveOptions = props.responsiveOptions || [];
-  //   let event;
 
-  //   if (this.chartist) {
-  //     this.chartist.update(data, options, responsiveOptions);
-  //   } else {
-  //     console.log('CHARTIST', this.chartRef.current, data, options, responsiveOptions)
-  //     this.chartist = new Chartist.Line(this.chartRef.current, data, options, responsiveOptions);
-
-  //     if (props.listener) {
-  //       for (event in props.listener) {
-  //         if (props.listener.hasOwnProperty(event)) {
-  //           this.chartist.on(event, props.listener[event]);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return this.chartist;
-  // }
+  componentDidUpdate = () => {
+    console.log('DIDUPDATE')
+    if (this.chartRef.current &&
+        this.state.options.width != this.chartRef.current.chart.clientWidth) {
+      this.setState({options  : {...this.state.options,
+                                 width: this.chartRef.current.chart.clientWidth,
+                                 height : this.chartRef.current.chart.clientHeight}}   )
+    }
+    
+    
+  }
+  
   
   render() {
     const series = [
       {name: 'Gauge date in CMS',
-       data: this.props.seriesdata}
+       data: this.props.seriesdata},
+      {
+        className: this.props.forceHidden ? 'hidden' : 'active',
+        data: []
+      }
     ]
-    console.log('FORCEHIDDEN', this.props.forcHidden)
-    console.log("SERIESDATA", this.props.seriesdata, this.state.data)
-    console.log('CHARTREF', this.chartRef.current)
-    if (this.chartRef.current) {
-      console.log('CHARTREF2', this.chartRef.current.chart.__chartist__.update)
-      this.chartRef.current.chart.__chartist__.update(series)
-    }
+    // console.log('FORCEHIDDEN', this.props.forcHidden)
+    // console.log("SERIESDATA", this.props.seriesdata, this.state.data)
+    // console.log('CHARTREF', this.chartRef.current)
+    console.log('CHARTREFCLI', this.chartRef)
+    // if (this.chartRef.current) {
+    //   // this.state.options.width= this.chartRef.current.chart.clientWidth
+    //   // this.state.options.height= this.chartRef.current.chart.clientHeight
+    //   console.log('CHARTREF2', this.chartRef.current.chart.__chartist__.update)
+    //   //this.chartRef.current.chart.__chartist__.update(series, this.state.options)
+    // }
     return (
-      <div>
+      <>
       { !this.props.forceHidden &&  this.props.seriesdata ?
        <ChartistGraph ref={this.chartRef} data={{series: series}}
                       options={this.state.options} needsUpdate={this.props.forceHidden}
-                      type={this.state.type} /> :
+                      type={this.state.type} className="waterchart" /> :
        <h3>No Data Yet</h3>
       }
-      </div>
+      </>
     )
   }
-  OldRender() {
-    // console.log('Chartist', Chartist)
-    return (
-      <div ref={this.chartRef}>
-        <input type="button" onClick={this.updateChart(this.props)} value="Update HTML"/>
-        {JSON.stringify(this.props.data)}
-      </div>
-    )
-  }
+}
+
+Waterchart.propTypes = {
+  seriesdata: PropTypes.array,
+  forceHidden: PropTypes.bool,
+  date: PropTypes.number,
+  height: PropTypes.number,
+  width: PropTypes.number
+}
+
+Waterchart.defaultProps = {
+  date: moment.valueOf(),
+  height: 350,
+  width: 700
 }
