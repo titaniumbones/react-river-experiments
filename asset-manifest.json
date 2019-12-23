@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/react-river-experiments/static/css/main.6d816f45.chunk.css",
+    "main.js": "/react-river-experiments/static/js/main.6d604538.chunk.js",
+    "main.js.map": "/react-river-experiments/static/js/main.6d604538.chunk.js.map",
+    "runtime-main.js": "/react-river-experiments/static/js/runtime-main.2d7bf81b.js",
+    "runtime-main.js.map": "/react-river-experiments/static/js/runtime-main.2d7bf81b.js.map",
+    "static/css/2.75d0805f.chunk.css": "/react-river-experiments/static/css/2.75d0805f.chunk.css",
+    "static/js/2.ea2b455a.chunk.js": "/react-river-experiments/static/js/2.ea2b455a.chunk.js",
+    "static/js/2.ea2b455a.chunk.js.map": "/react-river-experiments/static/js/2.ea2b455a.chunk.js.map",
+    "index.html": "/react-river-experiments/index.html",
+    "precache-manifest.3dfa8b238e9d3ddea727033fd63c2299.js": "/react-river-experiments/precache-manifest.3dfa8b238e9d3ddea727033fd63c2299.js",
+    "service-worker.js": "/react-river-experiments/service-worker.js",
+    "static/css/2.75d0805f.chunk.css.map": "/react-river-experiments/static/css/2.75d0805f.chunk.css.map",
+    "static/css/main.6d816f45.chunk.css.map": "/react-river-experiments/static/css/main.6d816f45.chunk.css.map",
+    "static/js/2.ea2b455a.chunk.js.LICENSE": "/react-river-experiments/static/js/2.ea2b455a.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2d7bf81b.js",
+    "static/css/2.75d0805f.chunk.css",
+    "static/js/2.ea2b455a.chunk.js",
+    "static/css/main.6d816f45.chunk.css",
+    "static/js/main.6d604538.chunk.js"
+  ]
+}
