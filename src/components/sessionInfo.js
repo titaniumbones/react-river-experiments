@@ -40,7 +40,6 @@ export default class SessionInfo extends React.Component {
         <div className="session-data">
           <Waterchart height={400}
                       spotslug={this.props.spot}  date={this.props.date}
-                      id={this.props.spot +'_' + moment(this.props.date).valueOf() }
                       width={this.containerRef && this.containerRef.current ?
                                     this.containerRef.current.clientWidth :
                                     800}
