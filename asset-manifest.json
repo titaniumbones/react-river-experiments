@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/react-river-experiments/static/css/main.6d816f45.chunk.css",
-    "main.js": "/react-river-experiments/static/js/main.a144de3c.chunk.js",
-    "main.js.map": "/react-river-experiments/static/js/main.a144de3c.chunk.js.map",
-    "runtime-main.js": "/react-river-experiments/static/js/runtime-main.2d7bf81b.js",
-    "runtime-main.js.map": "/react-river-experiments/static/js/runtime-main.2d7bf81b.js.map",
-    "static/css/2.75d0805f.chunk.css": "/react-river-experiments/static/css/2.75d0805f.chunk.css",
-    "static/js/2.ea2b455a.chunk.js": "/react-river-experiments/static/js/2.ea2b455a.chunk.js",
-    "static/js/2.ea2b455a.chunk.js.map": "/react-river-experiments/static/js/2.ea2b455a.chunk.js.map",
-    "index.html": "/react-river-experiments/index.html",
-    "precache-manifest.928e681334e5471997d12ebabae2c8c9.js": "/react-river-experiments/precache-manifest.928e681334e5471997d12ebabae2c8c9.js",
-    "service-worker.js": "/react-river-experiments/service-worker.js",
-    "static/css/2.75d0805f.chunk.css.map": "/react-river-experiments/static/css/2.75d0805f.chunk.css.map",
-    "static/css/main.6d816f45.chunk.css.map": "/react-river-experiments/static/css/main.6d816f45.chunk.css.map",
-    "static/js/2.ea2b455a.chunk.js.LICENSE": "/react-river-experiments/static/js/2.ea2b455a.chunk.js.LICENSE"
+    "main.css": "/static/css/main.6d816f45.chunk.css",
+    "main.js": "/static/js/main.15093d28.chunk.js",
+    "main.js.map": "/static/js/main.15093d28.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1b31c423.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1b31c423.js.map",
+    "static/css/2.75d0805f.chunk.css": "/static/css/2.75d0805f.chunk.css",
+    "static/js/2.ea2b455a.chunk.js": "/static/js/2.ea2b455a.chunk.js",
+    "static/js/2.ea2b455a.chunk.js.map": "/static/js/2.ea2b455a.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.45538b6faa59d7ccaee150187316f7c5.js": "/precache-manifest.45538b6faa59d7ccaee150187316f7c5.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.75d0805f.chunk.css.map": "/static/css/2.75d0805f.chunk.css.map",
+    "static/css/main.6d816f45.chunk.css.map": "/static/css/main.6d816f45.chunk.css.map",
+    "static/js/2.ea2b455a.chunk.js.LICENSE": "/static/js/2.ea2b455a.chunk.js.LICENSE"
   },
   "entrypoints": [
-    "static/js/runtime-main.2d7bf81b.js",
+    "static/js/runtime-main.1b31c423.js",
     "static/css/2.75d0805f.chunk.css",
     "static/js/2.ea2b455a.chunk.js",
     "static/css/main.6d816f45.chunk.css",
-    "static/js/main.a144de3c.chunk.js"
+    "static/js/main.15093d28.chunk.js"
   ]
 }
