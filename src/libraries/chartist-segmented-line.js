@@ -1,17 +1,15 @@
-import Chartist from 'chartist'
 /**
  * The Chartist line chart can be used to draw Line or Scatter charts. If used in the browser you can access the global `Chartist` namespace where you find the `Line` function as a main entry point.
  *
  * For examples on how to use the line chart please check the examples of the `Chartist.Line` method.
- *
+ * CHARTIST MUST BE IMPORTED IN PARENT FILE FIRST, and the run `Segment(root, Chartist)`
  * @module Chartist.SegmentedLine
  */
-/* global Chartist */
+
 export default function Segment (globalRoot, Chartist){
-  'use strict';
   console.log("trying to generate chart");
-  var window = globalRoot.window;
-  var document = globalRoot.document;
+  // var window = globalRoot.window;
+  // var document = globalRoot.document;
 
   /**
    * Default options in line charts. Expand the code view to see a detailed list of options with comments.
