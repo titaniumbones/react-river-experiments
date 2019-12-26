@@ -22,8 +22,8 @@ export class PointList extends React.Component {
       <h2 value="Map Links">Map Links</h2>
       <ul>
       {pEntries.length > 0 ?
-       pEntries.map(point => {
-          return <Point name={point[0]} location={point[1]}/>
+       pEntries.map( (point, index) => {
+         return <Point key={index} name={point[0]} location={point[1]}/>
        }) :
        <li>No Point Locations Provided</li>
       } 
@@ -38,7 +38,9 @@ export default class RiverTabPanel extends React.Component {
     const {points, slug} = this.props.river
     return (
       <div>
-        <Waterchart spotslug={slug}
+        <Waterchart
+          spotslug={slug}
+          checkUpdates={true}
         />
         {points && <PointList points={points}/>}
         <MarkdownFromUrl url={`./descriptions/${slug}.md`}/>

@@ -15,16 +15,16 @@ export default class WaterTabs extends Component {
   componentDidMount = () => {
     console.log("WATERTABS", this.props.rivers)
     const contentMap = this.props.rivers.map( (r) => {
-      return <TabPanel><RiverTabPanel river={r}/></TabPanel>})
-    const tabMap = this.props.rivers.map( (r) => {
-      return <Tab>{r.name}</Tab>})
+      return <TabPanel key={r.slug}><RiverTabPanel river={r}/></TabPanel>})
+    const tabMap = this.props.rivers.map( (r, index) => {
+      return <Tab key={r.slug}>{r.name}</Tab>})
     this.setState({tabList: tabMap, tabPanelArray: contentMap})
     console.log("WATERTABS PANELS", this.state.tabPanelArray)
   }
   
   render() {
     return (
-      <Tabs>
+      <Tabs defaultIndex={0} defaultFocus={true}>
         <TabList>
           {this.state.tabList}
         </TabList>

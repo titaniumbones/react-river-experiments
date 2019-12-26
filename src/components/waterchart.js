@@ -10,7 +10,7 @@ import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import '../../node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css'
 import { connect } from 'react-redux';
 import Rivers from  '../rivers.js';
-import {processGauge, getWOJSON} from '../DataParsers.js'
+import {processGauge} from '../DataParsers.js'
 
 
 // Add this function:
@@ -60,7 +60,6 @@ function generateTooltip (meta, value) {
         magnitude =  p.data[1].toFixed(2);
   let dateSpan = `<span class="chartist-tooltip-value">${date.format('MM-D HH:mm')}</span>`,
       magSpan = `<span>${magnitude} ${units}; </span>`,
-      text = `<span class="chartist-tooltip-value>${date.format('MM-DD - HH:mm')}<br>${magnitude}</span>`,
       output = `<div class="${p.quality} container">${magSpan}<br>${dateSpan}</div>`
   return output
 }
@@ -136,7 +135,7 @@ export class Waterchart extends Component {
   componentDidUpdate = () => {
     console.log('DIDUPDATE')
     if (this.chartRef.current &&
-        this.options.width != this.chartRef.current.chart.clientWidth) {
+        this.options.width !== this.chartRef.current.chart.clientWidth) {
       // update width and height somewhere
     }
   }
@@ -178,11 +177,11 @@ export class Waterchart extends Component {
 }
 
 Waterchart.propTypes = {
-  id: PropTypes.string,
   spotslug: PropTypes.string.isRequired,
   seriesdata: PropTypes.array,
   forceHidden: PropTypes.bool,
-  date: PropTypes.number,
+  //TODO: appropriate validator for date 
+  // date: PropTypes.number,
   height: PropTypes.number,
   width: PropTypes.number,
   checkUpdates: PropTypes.bool
