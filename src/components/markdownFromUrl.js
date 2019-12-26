@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Markdown from 'markdown-to-jsx'
 
 export default class MarkdownFromUrl extends React.Component {
@@ -8,11 +8,13 @@ export default class MarkdownFromUrl extends React.Component {
       content : '',
     }
   }
+  
   componentDidMount = () => {
-    const errText = '## No River Info Available'
+    const errText = '## No Information available Available'
+    console.log('MARKDOWN', this.props, this.state)
     fetch(this.props.url)
       .then( (res) => res.text())
-      .then( (text) => (text.length > 0 && text.substring(0,15) != '<!DOCTYPE html>') ?
+      .then( (text) => (text.length > 0 && text.substring(0,15) !== '<!DOCTYPE html>') ?
              this.setState({content: text}) && console.log("MARKDOWN", text) :
              this.setState({content:errText}) )
       .catch (() => (err) => this.setState({content:errText + err}))

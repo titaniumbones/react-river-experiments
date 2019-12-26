@@ -1,14 +1,9 @@
 import '../../node_modules/chartist/dist/chartist.min.css'
-import moment from 'moment';
 import React from 'react';
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import '../index.css';
 import Rivers from  '../rivers.js';
-import {processGauge, getWOJSON} from '../DataParsers.js'
-// import App from './App';
-import * as serviceWorker from '../serviceWorker';
 import Waterchart from '../components/waterchart.js'
-import { connect } from 'react-redux';
 
 
 function getSpot (slug) {

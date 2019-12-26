@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import MarkdownFromUrl from './markdownFromUrl.js'
-import {processGauge} from '../DataParsers.js'
-import Waterchart from '../components/waterchart.js'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import RiverTabPanel from './riverTabPanel.js'
