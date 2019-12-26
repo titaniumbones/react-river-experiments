@@ -6,7 +6,7 @@ import moment from '../node_modules/moment/moment.js'
 */
 
 
-const cors = `https://hackinghistory.ca:9090/`
+// const cors = `https://hackinghistory.ca:9090/`
 /* DICTIONARY mapping gauge type to function */
 
 // I think fn symbols are hoisted so should be ok here?
@@ -62,7 +62,7 @@ async function processWiskiData (spot, last) {
         return res.json()
       })
     .then ( (json) => {
-      console.log(json);
+      console.log('PROCESSWISKIJSON', json);
       return json[0].data
         .map( (item) => {
         let meta = {};
@@ -79,7 +79,7 @@ async function processWiskiData (spot, last) {
                         }
         return itemObj })    
     })
-      .catch(function(error){console.log(error);})
+    .catch(function(error){console.log('PROCESSWISKIERR', error);})
   // console.log ("MAP")
 
 }
@@ -129,7 +129,7 @@ async function processWOData (spot, latest) {
 }
 
 async function processGauge (spot, date, mapper=gaugeDict) {
-  console.log(spot.gaugeType, mapper[spot.gaugeType]);
+  console.log('PROCCESSGAUGE', spot.gaugeType, mapper[spot.gaugeType]);
   return await mapper[spot.gaugeType](spot, date);
 }
 
