@@ -16,7 +16,7 @@ import {
   Link
 } from "@reach/router";
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import mainReducer from './reducers/mainReducer.js'
 import { combineReducers } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
@@ -26,7 +26,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 // import firebase from 'firebase/app'
 // import 'firebase/auth'
 // import { ReactReduxFirebaseProvider, firebaseReducer } from 'react-redux-firebase'
-
+import thunk from 'redux-thunk'; // no changes here 😀
 
 
 // // Add firebase to reducers
@@ -45,8 +45,11 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, mainReducer)
 
 const store = createStore(persistedReducer,
-                          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+                          compose (applyMiddleware(thunk), 
+                                   window.__REDUX_DEVTOOLS_EXTENSION__ ?
+                                   window.__REDUX_DEVTOOLS_EXTENSION__() : f => f));
 const persistor = persistStore(store)
+
 // const Chartist = require('chartist')
 
 function App(props) {
