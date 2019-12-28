@@ -1,7 +1,7 @@
 import '../node_modules/chartist/dist/chartist.min.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../node_modules/chota/dist/chota.css'
+// import '../node_modules/chota/dist/chota.css'
 import './index.css';
 import './rivers.css';
 import Rivers from  './rivers.js';
