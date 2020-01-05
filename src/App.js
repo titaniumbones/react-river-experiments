@@ -23,6 +23,7 @@ import thunk from 'redux-thunk'; // no changes here 😀
 import firebase, {dbRef, providers} from './firebase'
 import 'firebase/auth';
 import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-auth';
+import MainStructure from './components/mainStructure.js'
 const persistConfig = {
   key: 'root',
   storage,
@@ -113,59 +114,16 @@ class AppAsClass extends Component {
 }
 
 
-function App ({
-  /** These props are provided by withFirebaseAuth HOC */
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithGoogle,
-  signInWithFacebook,
-  signInWithGithub,
-  signInWithTwitter,
-  signInAnonymously,
-  signOut,
-  setError,
-  user,
-  error,
-  loading,
-}: WrappedComponentProps) {
+export default function App () {
   //console.log(signInWithGoogle)
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
 
-        <nav className="nav bg-light">
-          <Link className="brand" to="">S.O. Shreds</Link>
-          <Link to="rivers">Rivers: Current</Link>
-      <Link to="waves">Waves: Current</Link>
-          <Link to="journal">Journal</Link>
-          <Link to="about">About</Link>
-          <div className="nav-right">
-          {
-            user
-              ? <a href="#">Hello, {user.displayName}</a>
-            : <button onClick={signInWithGoogle}>Sign in with Google</button>
-          }
-            {
-              user && 
-                <button class="bg-dark text-light" onClick={signOut}>Sign out</button>
-            }
-          </div>
-        </nav>
-
-        
-        <Router>
-          <WaterTabs path="rivers/*" rivers={Rivers}/>
-          <WaveTabs path="waves/*" />
-          <Journal path="journal" rivers={Rivers}/>
-          <MarkdownFromUrl path="about" url="descriptions/about.md"/>
-        </Router>
-        
+        <MainStructure/>
       </PersistGate>
     </Provider>
   )
 }
 
-export default withFirebaseAuth({
-  providers: providers,
-  firebaseAppAuth: firebase.auth(),
-})(App)
+
