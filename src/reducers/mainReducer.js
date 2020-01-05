@@ -10,9 +10,8 @@ const initialState = {
   charts: [],
   current: [],
   ui: {},
-  auth: {}
+  user: null
 }
-
 
 function updateObject(oldObject, newValues) {
   // Encapsulate the idea of passing a new object as the first parameter
@@ -103,7 +102,7 @@ export default function mainReducer(state=initialState, action) {
     current: [],
     sessions: [],
     ui: uiReducer(state.ui, action),
-    auth: authReducer(state.auth, action)
+    user: authReducer(state.user, action)
 
   }
 }
