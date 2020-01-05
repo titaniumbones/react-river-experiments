@@ -42,6 +42,76 @@ const persistor = persistStore(store)
 
 
 
+class AppAsClass extends Component {
+
+  constructor(props) {
+    super(props)
+    // const {
+    //   /** These props are provided by withFirebaseAuth HOC */
+    //   signInWithEmailAndPassword,
+    //   createUserWithEmailAndPassword,
+    //   signInWithGoogle,
+    //   signInWithFacebook,
+    //   signInWithGithub,
+    //   signInWithTwitter,
+    //   signInAnonymously,
+    //   signOut,
+    //   setError,
+    //   user,
+    //   error,
+    //   loading
+    // } = this.props
+  }
+
+  handleSignin =  async (authInfo) => {
+    console.log(this.props)
+    const result= await this.signInWithGoogle()
+    console.log('SIGNINRESULT', result)
+    // todo: dispatch
+  }
+  handleSignout = async (signOutFn, authInfo) => {
+    const result= await signOutFn()
+    console.log('SIGNOUTRESULT', result)
+    // todo: dispatch
+  }
+
+  render() {
+    return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+
+        <nav className="nav bg-light">
+          <Link className="brand" to="">S.O. Shreds</Link>
+          <Link to="rivers">Rivers: Current</Link>
+      <Link to="waves">Waves: Current</Link>
+          <Link to="journal">Journal</Link>
+          <Link to="about">About</Link>
+          <div className="nav-right">
+          {
+            this.user
+              ? <a href="#">Hello, {this.user.displayName}</a>
+            : <button onClick={this.handleSignin}>Sign in with Google</button>
+          }
+            {
+              this.user && 
+                <button class="bg-dark text-light" onClick={this.handleSignout(this.signOut)}>Sign out</button>
+            }
+          </div>
+        </nav>
+
+        
+        <Router>
+          <WaterTabs path="rivers/*" rivers={Rivers}/>
+          <WaveTabs path="waves/*" />
+          <Journal path="journal" rivers={Rivers}/>
+          <MarkdownFromUrl path="about" url="descriptions/about.md"/>
+        </Router>
+        
+      </PersistGate>
+    </Provider>
+  )}
+}
+
 
 function App ({
   /** These props are provided by withFirebaseAuth HOC */
