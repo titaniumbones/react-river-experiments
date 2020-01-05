@@ -57,7 +57,8 @@ export class JournalForm extends React.Component {
       id: id 
     };
     event.preventDefault();
-    this.handleSubmit(info);
+    this.handleSubmit(info)
+    this.state.entry = this.state.date =  '';
   }
 
   render() {
