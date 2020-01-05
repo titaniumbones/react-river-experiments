@@ -5,6 +5,8 @@ import Rivers from  '../rivers.js';
 import Breaks from '../surfspots.js'
 
 import {addJournalEntry} from '../actions/main.js'
+import {dbRef, journalRef, chartsRef}  from '../firebase.js'
+import firebase from '../firebase.js'
 // 'state' is actually *redux store*,
 // which is I guess a 'state', but obvs *not*
 // plain old react state.  
@@ -27,6 +29,11 @@ export class JournalForm extends React.Component {
   }
   handleSubmit = (entry) => {
     console.log('FORMUPDATE', entry);
+    firebase.database().ref('journal/' + entry.id).set({
+      spot: entry.spot,
+      date: entry.date,
+      entry: entry.entry
+    })
     this.props.dispatch({type: (this.props.submit === "update") ?
                          'UPDATE_ENTRY' : 'ADD_ENTRY',
                          payload: entry})
