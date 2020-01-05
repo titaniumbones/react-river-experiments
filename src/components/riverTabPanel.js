@@ -43,7 +43,7 @@ export default class RiverTabPanel extends React.Component {
           checkUpdates={true}
         />
         {points && <PointList points={points}/>}
-        <MarkdownFromUrl url={`./descriptions/${slug}.md`}/>
+        <MarkdownFromUrl url={`/descriptions/${slug}.md`}/>
         </div>
     )
   }
