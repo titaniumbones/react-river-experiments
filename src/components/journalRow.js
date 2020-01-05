@@ -12,7 +12,8 @@ import {Resizable, ResizableBox} from 'react-resizable'
 // plain old react state.  
 function mapStateToProps(state) {
   return {
-    entries: state.journal.entries
+    entries: state.journal.entries,
+    uid: state.user.user
   };
 }
 
@@ -33,7 +34,7 @@ class JournalRow extends React.Component {
     this.setState({showForm: !this.state.showForm})
   }
   deleteEntry = () => {
-    firebase.database().ref('journal/' + this.props.id).remove()
+    firebase.database().ref(`journal/${this.props.uid}/${this.props.id}`).remove()
     this.props.dispatch({
       type: 'DELETE_ENTRY',
       payload: {id: this.props.id}

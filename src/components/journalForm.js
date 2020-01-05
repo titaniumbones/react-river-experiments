@@ -12,7 +12,8 @@ import firebase from '../firebase.js'
 // plain old react state.  
 function mapStateToProps(state) {
   return {
-    entries: state.journal.entries
+    entries: state.journal.entries,
+    uid: state.user.user
   };
 }
 
@@ -28,8 +29,9 @@ export class JournalForm extends React.Component {
     }
   }
   handleSubmit = (entry) => {
+    const uid = this.props.uid || 'anonymous'
     console.log('FORMUPDATE', entry);
-    firebase.database().ref('journal/' + entry.id).set({
+    firebase.database().ref(`journal/${this.props.uid}/${entry.id}`).set({
       spot: entry.spot,
       date: entry.date,
       entry: entry.entry
