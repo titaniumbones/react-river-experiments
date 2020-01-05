@@ -4,20 +4,39 @@ import 'react-tabs/style/react-tabs.css'
 import RiverTabPanel from './riverTabPanel.js'
 import Breaks from '../surfspots.js'
 import {Link, Router} from '@reach/router'
+
+class Dummy extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        No content here for {this.props.name}
+      </div>
+    )
+  }
+}
+
 export default function WaveTabs() {
   const [activeTab, updateActiveTab] = useState(0)
  
   return (
-    <nav> 
+    <div>
+      <nav className="nav bg-primary"> 
+        {Breaks.map( (spot) =>  <Link key={spot.slug} to={spot.slug}>{spot.name}</Link>)}
+      </nav>
       <h2>Waves Coming Soon!</h2>
       <p>Please bear with us as we try to implement wave- related functionality. </p>
-      {Breaks.map( (spot) =>  <Link key={spot.slug} to={spot.slug}>{spot.name}</Link>)}
+
       <Router>
-        <div path="abay" >empty div</div>
-        
-        {/* {Breaks.map(spot => <BreakTab key={spot.slug} path={spot.slug} id={spot.slug} spot={spot}/>)} */}
+        {Breaks.map( (spot) =>  <Dummy key={spot.slug} path={spot.slug} name={spot.name}/>)}
       </Router>
-    </nav>
+    </div>
   )
 }
 class BreakTab extends React.Component {
