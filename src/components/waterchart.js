@@ -7,7 +7,6 @@ import moment from 'moment'
 import Segment from '../libraries/chartist-segmented-line.js'
 import Chartist from 'chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
-import '../../node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css'
 import { connect } from 'react-redux';
 import Rivers from  '../rivers.js';
 import {processGauge} from '../DataParsers.js'
@@ -60,7 +59,7 @@ function generateTooltip (meta, value) {
         magnitude =  p.data[1].toFixed(2);
   let dateSpan = `<span class="chartist-tooltip-value">${date.format('MM-D HH:mm')}</span>`,
       magSpan = `<span>${magnitude} ${units}; </span>`,
-      output = `<div class="${p.quality} container">${magSpan}<br>${dateSpan}</div>`
+      output = `<div class="${p.quality} container">${magSpan}${dateSpan}</div>`
   return output
 }
 
@@ -74,7 +73,12 @@ const waterchartDefaultOptions =  {
       return moment(value).format('MM-DD [\n] HH:mm')
     }
   },
-  axisY: {scaleMinSpace: 200},
+  axisY: {scaleMinSpace: 20,
+          position: "end",
+          
+          showLabel: true,
+          // If the axis grid should be drawn or not
+          showGrid: true,},
   plugins: [
     ChartistTooltip({
       tooltipFnc: generateTooltip, 
@@ -85,7 +89,7 @@ const waterchartDefaultOptions =  {
     })
   ],
   height: 350,
-  width: 700,
+  width: "100%",
 };
 
 
@@ -103,6 +107,8 @@ export class Waterchart extends Component {
 
   }
 
+  deleteData = () => this.props.dispatch({type: 'DELETE_CHART',
+                                          id:`${this.props.spotslug}_${this.props.date? moment(this.props.date).valueOf() : 'latest'}`})
   updateData = () => {
     console.log("UPDATECHART", this.spotDef, this.props.date, this.props.spotslug, this.props)
     this.spotDef && processGauge(this.spotDef, this.props.date)
@@ -125,11 +131,6 @@ export class Waterchart extends Component {
     
     if (this.props.checkUpdates) {
       this.keepUpdating = setInterval(this.updateData(), 120000) }
-    // this.setState({data:{
-    //   series: [
-    //     {name: 'Gauge date in CMS',
-    //      data: this.props.seriesdata}
-    //   ]}})
   }
 
   componentDidUpdate = () => {
@@ -153,23 +154,22 @@ export class Waterchart extends Component {
         data: []
       }
     ]
-    // console.log('FORCEHIDDEN', this.props.forcHidden)
-    // console.log("SERIESDATA", this.props.seriesdata, this.state.data)
-    // console.log('CHARTREF', this.chartRef.current)
-    // console.log('CHARTREFCLI', this.chartRef)
-    // if (this.chartRef.current) {
-    //   // this.state.options.width= this.chartRef.current.chart.clientWidth
-    //   // this.state.options.height= this.chartRef.current.chart.clientHeight
-    //   console.log('CHARTREF2', this.chartRef.current.chart.__chartist__.update)
-    //   //this.chartRef.current.chart.__chartist__.update(series, this.state.options)
-    // }
     return (
       <>
-      { !this.props.forceHidden &&  this.props.seriesdata ?
-       <ChartistGraph ref={this.chartRef} data={{series: series}}
-                      options={this.options} needsUpdate={this.props.forceHidden}
-                      type={this.type} className="waterchart" /> :
-       <h3>No Data Yet</h3>
+        { !this.props.forceHidden &&  this.props.seriesdata ?
+          <div className="waterchart">
+          <ChartistGraph ref={this.chartRef} data={{series: series}}
+                         options={this.options} needsUpdate={this.props.forceHidden}
+                         type={this.type} className="chartist" />
+            <div className="buttons">
+              <button className="bg-primary" onClick={this.updateData}>Update Data</button>
+              <button className="bg-error" onClick={this.deleteData}>Delete Data</button>
+            </div>
+          </div>:
+          <div className="waterchart empty">
+            <h3>No Data Yet</h3>
+            <button className="bg-primary" onClick={this.updateData}>Trigger Manual Update</button>
+          </div>
       }
       </>
     )
@@ -183,14 +183,14 @@ Waterchart.propTypes = {
   //TODO: appropriate validator for date 
   // date: PropTypes.number,
   height: PropTypes.number,
-  width: PropTypes.number,
+  // width: PropTypes.number,
   checkUpdates: PropTypes.bool
 }
 
 Waterchart.defaultProps = {
   // date: moment.valueOf(),
   height: 350,
-  width: 700,
+  width: "100%",
   checkUpdates: false
 }
 
