@@ -7,6 +7,7 @@ import Breaks from '../surfspots.js'
 import {addJournalEntry} from '../actions/main.js'
 import {dbRef, journalRef, chartsRef}  from '../firebase.js'
 import firebase from '../firebase.js'
+import moment from 'moment'
 // 'state' is actually *redux store*,
 // which is I guess a 'state', but obvs *not*
 // plain old react state.  
@@ -23,7 +24,7 @@ export class JournalForm extends React.Component {
     const {spot, date, entry, id} = this.props
     this.state = {
       spot: spot || "grand",
-      date: date,
+      date: date || moment().format('YYYY-MM-DD'),
       entry: entry,
       id : id || uuid()
     }
