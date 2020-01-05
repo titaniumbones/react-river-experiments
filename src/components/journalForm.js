@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uuid from 'uuid/v4'
 import Rivers from  '../rivers.js';
+import Breaks from '../surfspots.js'
 
+import {addJournalEntry} from '../actions/main.js'
 // 'state' is actually *redux store*,
 // which is I guess a 'state', but obvs *not*
 // plain old react state.  
@@ -52,23 +54,36 @@ export class JournalForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
+      <fieldset>
         <label>
           Spot:
           <select name="spot" value={this.state.spot} onChange={this.handleChange}>
+            <optgroup label="Rivers:">
       {Rivers.map( (r, index) =>
         <option key={index} value={r.slug}>{r.name}</option>
-            )}
+      )}
+            </optgroup>
+            <optgroup label="Surf Breaks">
+              {Breaks.map( (r, index) =>
+                <option key={index} value={r.slug}>{r.name}</option>
+              )}
+
+            </optgroup>
           </select>
         </label>
         <label >
           date:
           <input name="date" type="text" value={this.state.date} onChange={this.handleChange}/>
         </label>
-      <label className="entry">
-          What Happened?:
+
+      </fieldset>
+        <fieldset  className="entry">
+      <label for="entry">
+          What Happened?:          
+      </label>
           <textarea name="entry" value={this.state.entry} onChange={this.handleChange}/>
-        </label>
-        <input type="submit" value="Submit"/>
+        </fieldset>
+        <input className="submit" type="submit" value="Submit" tabindex="10"/>
       </form>
     );
   }
