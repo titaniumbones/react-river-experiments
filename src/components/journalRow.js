@@ -4,6 +4,8 @@ import '../index.css';
 import { connect } from 'react-redux';
 import SessionInfo from '../components/sessionInfo.js'
 import JournalForm from './journalForm.js'
+import firebase from '../firebase.js'
+import {Resizable, ResizableBox} from 'react-resizable'
 
 // 'state' is actually *redux store*,
 // which is I guess a 'state', but obvs *not*
@@ -30,10 +32,12 @@ class JournalRow extends React.Component {
   toggleForm = () => {
     this.setState({showForm: !this.state.showForm})
   }
-  deleteEntry = () => (this.props.dispatch({
-    type: 'DELETE_ENTRY',
-    payload: {id: this.props.id}
-  }))
+  deleteEntry = () => {
+    firebase.database().ref('journal/' + this.props.id).remove()
+    this.props.dispatch({
+      type: 'DELETE_ENTRY',
+      payload: {id: this.props.id}
+    })}
   render() {
     return (
       <div className="journal-row">
@@ -49,20 +53,23 @@ class JournalRow extends React.Component {
       {this.state.showForm ?
        `Hide Update Form` : `Update Entry` }
           </button>          
-          <button className ="button xerror"
+          <button className ="button error"
                   onClick={this.deleteEntry}>
             Delete Entry (Danger!)
           </button>          
         </div>
-        <div className="journal-field">{this.props.spot}</div>
-        <div className="journal-field">{this.props.date}</div>
+        <div className="spoot-field">{this.props.spot}</div>
+        <div className="date-field">{this.props.date}</div>
         <div className="journal-field">{this.props.entry}</div>
       </div>
-        {this.state.showForm && <JournalForm id={this.props.id}
-                                             spot={this.props.spot}
-                                             entry={this.props.entry}
-                                             date={this.props.date}
-                                             submit="update"/>}
+        {this.state.showForm &&
+         <Resizable>
+         <JournalForm id={this.props.id}
+                      spot={this.props.spot}
+                      entry={this.props.entry}
+                      date={this.props.date}
+         submit="update"/>
+         </Resizable>}
       <SessionInfo forceHidden={!this.state.infoShown} className={this.state.infoShown ? "active" : "hidden"} spot={this.props.spot} date={this.props.date}/>
       </div>
     )
