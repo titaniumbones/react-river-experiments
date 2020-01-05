@@ -12,38 +12,3 @@ code {
     monospace;
 }
 
-div.journal-row  {
-    padding: 20px;
-    border: 5px solid red;
-    margin: 10px;
-                   
-}
-
-div.journal-row .entry {
-
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 3fr
-}
-
-div.journal .session-data {
-    height: 30em;
-    overflow: auto;
-    
-}
-
-div.session-data .chart-big {
-    height: 200px;
-    width: 100vw;
-    
-}
-
-
-div.journal-row .hidden {
-    display: none;
-}
-
-
-div.journal-row .active {
-    display: block;
-}
-
