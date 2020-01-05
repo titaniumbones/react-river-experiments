@@ -116,6 +116,7 @@ async function processWOData (spot, latest) {
         meta.height = Number(item[1]);
         meta.quality = testGood(item[1], spot);
         meta.units = spot.units;
+        meta.data = item;
         const itemObj =  { x: new Date(item[0]),
                            y: item[1],
                            meta: meta
