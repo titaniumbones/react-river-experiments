@@ -1,4 +1,5 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+import authReducer from './authReducer.js'
 const initialState = {
   journal: {
     entries: [
@@ -7,8 +8,9 @@ const initialState = {
     current: {spot:'', date:'', entry:'' }
   },
   charts: [],
-  sessions: [],
-  current: []
+  current: [],
+  ui: {},
+  auth: {}
 }
 
 
@@ -68,14 +70,29 @@ function journalReducer(journalState=[], action) {
 function chartsReducer(chartsState=initialState, action) {
   switch (action.type) {
   case 'UPDATE_CHART':
-    const newChartsState = {...chartsState}
+    {const newChartsState = {...chartsState}
     newChartsState[action.id] = action.payload
-    return newChartsState
+    return newChartsState}
+  case 'DELETE_CHART':
+    {const newChartsState = {...chartsState}
+    delete newChartsState[action.id]
+    return newChartsState}
   default:
     return chartsState
   }
 }
-  
+
+//TODO: actually track UI state!!
+export function uiReducer (uiState={}, action) {
+  switch (action.type) {
+  case 'SET_ACTIVE_TAB':
+    return uiState
+  default:
+    return uiState
+  }
+}
+
+
 export default function mainReducer(state=initialState, action) {
   // just gonna leave this blank for now
   // which is the same as `return undefined;`
@@ -84,8 +101,9 @@ export default function mainReducer(state=initialState, action) {
     journal: journalReducer(state.journal, action),
     charts: chartsReducer(state.charts, action),
     current: [],
-    sessions: []
+    sessions: [],
+    ui: uiReducer(state.ui, action),
+    auth: authReducer(state.auth, action)
+
   }
-
 }
-
