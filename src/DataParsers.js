@@ -24,10 +24,10 @@ function testGood (level, spotMeta) {
     .some( function (d)  {
       if ( (d[0] < level) && ( level < d[1])  ) {
         // console.log(d);
-        value = d[2]; return value; }
-      return value
+        value = d[2]; }
+      
     });
-  //console.log(value)
+  // console.log('TESTGOOD', value, spotMeta)
   return value
 }
 
@@ -74,10 +74,11 @@ async function processWiskiData (spot, last) {
         // note: may need to adjust date for DST & time zone -- cf.
         // functions & comments in https://apps.grandriver.ca/waterdata/kiwischarts/js/RF_Charts.js?v1.0
         // lines ~43-65
-        const itemObj = {x: item[0],
+          const itemObj = {x: item[0],
                          y: item[1],
                          meta: meta
                         }
+          //console.log('META', meta)
         return itemObj })    
     })
     .catch(function(error){console.log('PROCESSWISKIERR', error);})
