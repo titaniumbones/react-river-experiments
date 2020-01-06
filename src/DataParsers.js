@@ -104,7 +104,7 @@ async function getWOJSON (stationData, last, needCors = true) {
       // console.log(res.headers.get('Content-Type'))
       return res.json()
     })
-    .then ( (json) => { console.log(json);return json["47"].provisional} )
+    .then ( (json) => { console.log('WOJSON', json);return json["47"].provisional} )
     .catch(function(error){console.log(error);});
 }
 
@@ -114,11 +114,12 @@ async function processWOData (spot, latest) {
     .then ( function (rawData)  {
       return rawData.map((item) => {
         let meta = {};
+        
         meta.height = Number(item[1]);
         meta.quality = testGood(item[1], spot);
         meta.units = spot.units;
         meta.data = item;
-        const itemObj =  { x: new Date(item[0]),
+        const itemObj =  { x: item[0],
                            y: item[1],
                            meta: meta
                          };
