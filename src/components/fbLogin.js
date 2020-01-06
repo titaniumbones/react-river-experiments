@@ -9,10 +9,11 @@ import { persistStore, persistReducer } from 'redux-persist'
 // this wass helpful re: thunk + devtools:
 // https://medium.com/@e_himmelfarb/implement-redux-devtools-extension-with-thunk-and-other-async-middleware-20e97100b2b0
 import thunk from 'redux-thunk'; // no changes here 😀
-import firebase, {dbRef, providers} from '../firebase'
+import firebase, {journalRef, providers} from '../firebase'
 import 'firebase/auth';
 import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-auth';
-
+import {store} from '../store.js'
+import {compareJournals} from '../utils/utils.js'
 
  function FbLogin ({
   /** These props are provided by withFirebaseAuth HOC */
@@ -27,16 +28,43 @@ import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-aut
   setError,
   user,
   error,
-  loading,
+   loading,
+   uid
  } : WrappedComponentProps) {
    const dispatch = useDispatch();
    //const user = useSelector(state => state.user);
 
+   async function mySignIn () {
+     signInWithGoogle().then( (result) => {
+       // console.log('STOREATSIGNIN', store.getState())
+       const newId = result.user?.uid;
+       
+       newId && dispatch({type: 'CREATE_USER_SUCCESS', payload: newId})
+       journalRef
+         .child(newId)
+         .on('value', (snapshot) => {
+           compareJournals(store.getState().journal, snapshot.val())
+         })
+     })
+   }
+
+   async function mySignOut () {
+     signOut()
+     dispatch({type: 'LOGOUT'});
+     
+   }
    useEffect (() => {
      console.log('GOTUSERID', user && user.uid)
-     user ?
-       dispatch({type: 'CREATE_USER_SUCCESS', payload: user.uid}) :
-       dispatch({type: 'LOGOUT'})       
+     let dbEntries;
+     if (user) {dbEntries = journalRef
+           .child(user.uid).on('value',
+                               (snapshot) =>console.log('JOURNALREF', snapshot.val()))}
+     // user ?
+     //   dispatch({type: 'CREATE_USER_SUCCESS', payload: user.uid}) :
+     //   dispatch({type: 'LOGOUT'});
+     // user &&
+     //   journalRef.child(user.uid).on('value',
+     //                                 (snapshot) =>console.log('JOURNALREF', snapshot.val()))
    })
 
   return (
@@ -44,11 +72,11 @@ import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-aut
     {
       user
         ? <a href="#">Hello, {user.displayName}</a>
-      : <button onClick={signInWithGoogle}>Sign in with Google</button>
+      : <button onClick={mySignIn}>Sign in with Google</button>
       }
     {
       user && 
-        <button className="bg-dark text-light" onClick={signOut}>Sign out</button>
+        <button className="bg-dark text-light" onClick={mySignOut}>Sign out</button>
     }
     </>)
   
