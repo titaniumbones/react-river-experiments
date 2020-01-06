@@ -4,40 +4,23 @@ import WaterTabs from './components/watertabs.js'
 import WaveTabs from './components/WaveTabs.js'
 import MarkdownFromUrl from './components/markdownFromUrl.js'
 import Journal from './components/journal.js'
+import { persistStore, persistReducer } from 'redux-persist'
 
 import {
   Router,
   Link
 } from "@reach/router";
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import mainReducer from './reducers/mainReducer.js'
 import { combineReducers } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist'
 // TODO: switch from localStorage to indexedDB
 import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 // this wass helpful re: thunk + devtools:
 // https://medium.com/@e_himmelfarb/implement-redux-devtools-extension-with-thunk-and-other-async-middleware-20e97100b2b0
-import thunk from 'redux-thunk'; // no changes here 😀
 import firebase, {dbRef, providers} from './firebase'
 import 'firebase/auth';
 import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-auth';
 import MainStructure from './components/mainStructure.js'
-const persistConfig = {
-  key: 'root',
-  storage,
-}
-
-
-
-const persistedReducer = persistReducer(persistConfig, mainReducer)
-
-const store = createStore(persistedReducer,
-                          compose (applyMiddleware(thunk), 
-                                   window.__REDUX_DEVTOOLS_EXTENSION__ ?
-                                   window.__REDUX_DEVTOOLS_EXTENSION__() : f => f));
-const persistor = persistStore(store)
+import {store,persistor} from './store.js'
 
 // const Chartist = require('chartist')
 
