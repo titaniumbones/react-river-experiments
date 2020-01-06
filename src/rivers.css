@@ -161,6 +161,12 @@ main#main {
     background-color: var(--shoulder-value);
 }
 
+/* labels */
+.ct-label {
+    color: rgba(0,0,0,0.7);
+    font-size: 1.0rem
+}
+
 .waterchart .chartist-tooltip {
     background-color: unset;
     padding: 0px;
@@ -261,6 +267,14 @@ background-color: (red, green);
     }
 }
 /* forms */
+div.journal-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 2px solid black;
+    padding: 1em;
+        
+}
 div.journal form {
     display: flex;
     flex-wrap: wrap;
@@ -275,7 +289,7 @@ div.journal form .entry {
 }
 
 div.journal form textarea {
-    min-height: calc (100% - 1.5em);
+    min-height: calc(100% - 1.5em);
 }
 
 div.journal form input.submit {
@@ -317,6 +331,8 @@ div.journal-row>.entry>.buttons {
     flex-direction: column;
     gap: 1em;
 }
+
+
 
 /* div.journal .session-data { */
 /*     height: 30em; */
