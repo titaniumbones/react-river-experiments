@@ -91,7 +91,7 @@ export class Waterchart extends Component {
     // console.log("UPDATECHART IN CONSTRUCTOR", this.spotDef, this.props.date, this.props.spotslug, this.props)
     
     this.spotDef = getSpot(this.props.spotslug)
-    this.chartRef = React.createRef();
+    // this.chartRef = React.createRef();
     this.type =  'SegmentedLine';
     this.options = {...waterchartDefaultOptions,
                     height: this.props.height || waterchartDefaultOptions.height,
@@ -131,12 +131,12 @@ export class Waterchart extends Component {
   componentDidUpdate = () => {
     console.log('DIDUPDATE')
     //this.setState({seriesdata:this.props.seriesdata})
-    if (this.chartRef.current)
-      //console.log(this.chartRef.current)
-       //this.chartRef.current.update()
-      if (this.options.width !== this.chartRef.current.chart.clientWidth) {
-      // update width and height somewhere
-    }
+    // if (this.chartRef.current)
+    //   //console.log(this.chartRef.current)
+    //    //this.chartRef.current.update()
+    //   if (this.options.width !== this.chartRef.current.chart.clientWidth) {
+    //   // update width and height somewhere
+    // }
   }
 
   componentWillUnmount() {
@@ -156,7 +156,7 @@ export class Waterchart extends Component {
       <>
         { !this.props.forceHidden &&  this.props.seriesdata ?
           <div className="waterchart">
-            <ChartistGraph ref={this.chartRef}
+            <ChartistGraph /* ref={this.chartRef} */
                            id={this.props.chartId}
                              options={this.options} needsUpdate={this.props.keepUpdating}
                              type={this.type} className="chartist" />
