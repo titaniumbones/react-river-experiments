@@ -21,12 +21,11 @@ const gaugeDict = {
 function testGood (level, spotMeta) {
   let value = 'bad';
   spotMeta.levels
-    .some( function (d)  {
+    .some( d =>  {
       if ( (d[0] < level) && ( level < d[1])  ) {
         // console.log(d);
-        value = d[2]; }
-      
-    });
+        value = d[2]; return value }
+    return false});
   // console.log('TESTGOOD', value, spotMeta)
   return value
 }
