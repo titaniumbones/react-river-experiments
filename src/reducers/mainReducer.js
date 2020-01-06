@@ -78,18 +78,33 @@ export function uiReducer (uiState={}, action) {
   }
 }
 
+export function journalFilterReducer (filterState=[], action) {
+  switch (action.type) {
+  case 'SET_FILTER':
+    return { ...filterState, ...action.payload}
+  default:
+    return filterState
+  }
+}
 
 export default function mainReducer(state=initialState, action) {
   // just gonna leave this blank for now
   // which is the same as `return undefined;`
   console.log('REDUCING!')
   return {
-    journal: journalReducer(state.journal, action),
+    
     charts: chartsReducer(state.charts, action),
     current: [],
     sessions: [],
     ui: uiReducer(state.ui, action),
-    user: authReducer(state.user, action)
-
+    user: authReducer(state.user, action),
+    journal: (state.user?.user) ?
+              {[state.user.user] : journalReducer(state.journal[state.user.user], action),
+               anonymous: state.journal.anonymous}
+              :
+              {anonymous: journalReducer(state.journal.anonymous, action)}
+             
+    ,
+    journalFilter: journalFilterReducer(state.journalFilter, action)
   }
 }
