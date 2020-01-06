@@ -35,39 +35,64 @@ class JournalRow extends React.Component {
       type: 'DELETE_ENTRY',
       payload: {id: this.props.id}
     })}
+
+  updateStars = (rating) => {
+    rating= Number(rating)
+    const {id, entry, spot, date } = this.props
+    const updated = Date.now()
+    this.props.dispatch({
+      type: 'UPDATE_ENTRY',
+      payload: {id, entry, spot, date, rating, updated: updated }})
+    this.props.uid && firebase.database()
+      .ref(`journal/${this.props.uid}/${id}`)
+      .set({
+        spot: spot,
+        date: date,
+        entry: entry,
+        rating: rating,
+        updated: updated
+      })
+  }
   render() {
     return (
       <div className="journal-row">
-      <div className ="entry">
-        <div className="buttons">
-          <button className ="button success"
-                  onClick={this.showInfo}>
-            {this.state.infoShown ?
-             `Hide Graphs` : `Show Graphs`}
-          </button>
-          <button className ="secondary"
-                  onClick={this.toggleForm}>
-      {this.state.showForm ?
-       `Hide Update Form` : `Update Entry` }
-          </button>          
-          <button className ="button error"
-                  onClick={this.deleteEntry}>
-            Delete Entry (Danger!)
-          </button>          
+        <div className ="entry">
+          <div className="buttons">
+            <button className ="button success"
+                    onClick={this.showInfo}>
+              {this.state.infoShown ?
+               `Hide Graphs` : `Show Graphs`}
+            </button>
+            <button className ="secondary"
+                    onClick={this.toggleForm}>
+              {this.state.showForm ?
+               `Hide Update Form` : `Update Entry` }
+            </button>          
+            <button className ="button error"
+                    onClick={this.deleteEntry}>
+              Delete Entry (Danger!)
+            </button>          
+          </div>
+          <div className="meta">
+          <div className="spot-field">{this.state.name}</div>
+          <div className="date-field">{this.props.date}</div>
+            <StarRating
+              numberOfStars="5"
+              currentRating={this.props.rating || 0 }
+              onClick={this.updateStars}
+            />
+            
+          </div>
+          <div className="journal-field">{this.props.entry}</div>
         </div>
-        <div className="spoot-field">{this.props.spot}</div>
-        <div className="date-field">{this.props.date}</div>
-        <div className="journal-field">{this.props.entry}</div>
-      </div>
         {this.state.showForm &&
-         <Resizable>
          <JournalForm id={this.props.id}
                       spot={this.props.spot}
                       entry={this.props.entry}
                       date={this.props.date}
-         submit="update"/>
-         </Resizable>}
-      <SessionInfo forceHidden={!this.state.infoShown} className={this.state.infoShown ? "active" : "hidden"} spot={this.props.spot} date={this.props.date}/>
+                      rating={this.props.rating}  
+                      submit="update"/> }
+        <SessionInfo forceHidden={!this.state.infoShown} className={this.state.infoShown ? "active" : "hidden"} spot={this.props.spot} date={this.props.date}/>
       </div>
     )
   }
