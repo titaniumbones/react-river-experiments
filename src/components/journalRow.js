@@ -6,23 +6,19 @@ import SessionInfo from '../components/sessionInfo.js'
 import JournalForm from './journalForm.js'
 import firebase from '../firebase.js'
 import {Resizable, ResizableBox} from 'react-resizable'
+import {mapUserToProps as mapStateToProps} from '../utils/stateMaps.js'
+import StarRating from './star-rating.jsx'
+import {getSpot} from '../utils/utils.js'
 
-// 'state' is actually *redux store*,
-// which is I guess a 'state', but obvs *not*
-// plain old react state.  
-function mapStateToProps(state) {
-  return {
-    entries: state.journal.entries,
-    uid: state.user.user
-  };
-}
 
 class JournalRow extends React.Component {
   constructor(props) {
     super(props)
+    const name = getSpot(this.props.spot)
     this.state = {
       infoShown:  false,
-      showForm: this.props.showForm
+      showForm: this.props.showForm,
+      name: name.name
     }
   }
   
