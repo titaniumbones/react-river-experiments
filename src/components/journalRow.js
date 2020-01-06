@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import SessionInfo from '../components/sessionInfo.js'
 import JournalForm from './journalForm.js'
 import firebase from '../firebase.js'
-import {Resizable, ResizableBox} from 'react-resizable'
 import {mapUserToProps as mapStateToProps} from '../utils/stateMaps.js'
 import StarRating from './star-rating.jsx'
 import {getSpot} from '../utils/utils.js'

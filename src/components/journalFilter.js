@@ -2,7 +2,6 @@ import React from 'react';
 import {SelectSpot} from './journalForm.js'
 import StarRating from './star-rating.jsx'
 import {connect} from 'react-redux'
-import {starFilter, dateFilter, spotFilter} from '../utils/filters.jsx'
 import {initialState} from '../reducers/initialState.js'
 
 function mapStateToProps(state,ownProps) {

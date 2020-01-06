@@ -5,7 +5,6 @@ import Rivers from  '../rivers.js';
 import Breaks from '../surfspots.js'
 
 // import {addJournalEntry} from '../actions/main.js'
-import {dbRef, journalRef, chartsRef}  from '../firebase.js'
 import firebase from '../firebase.js'
 import moment from 'moment'
 import {mapJournalToProps as mapStateToProps} from '../utils/stateMaps.js'
@@ -64,8 +63,8 @@ export class JournalForm extends React.Component {
     }
   }
   handleSubmit = (entry) => {
-    const uid = this.props.uid || 'anonymous'
-    console.log('FORMUPDATE', entry);
+    // const uid = this.props.uid || 'anonymous'
+    // console.log('FORMUPDATE', entry);
     this.props.dispatch({type: (this.props.submit === "update") ?
                          'UPDATE_ENTRY' : 'ADD_ENTRY',
                          payload: entry})
@@ -100,7 +99,7 @@ export class JournalForm extends React.Component {
     };
     event.preventDefault();
     this.handleSubmit(info)
-    this.state.entry =   '';
+    this.setState({entry: ''})
   }
 
   setRating = rating => {

@@ -2,7 +2,7 @@ import '../../node_modules/chartist/dist/chartist.min.css'
 import React from 'react';
 import '../index.css';
 import moment from 'moment'
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import JournalForm from './journalForm.js'
 import JournalRow from './journalRow.js'
 import JournalFilter from './journalFilter.js'

@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import React from 'react'
 import 'react-tabs/style/react-tabs.css'
-import RiverTabPanel from './riverTabPanel.js'
 import Breaks from '../surfspots.js'
 import {Link, Router} from '@reach/router'
 
@@ -23,7 +21,6 @@ class Dummy extends React.Component {
 }
 
 export default function WaveTabs() {
-  const [activeTab, updateActiveTab] = useState(0)
  
   return (
     <div>
@@ -56,34 +53,3 @@ class BreakTab extends React.Component {
   }
 }
 
-// export  class WaveTabs extends Component {
-//   constructor(props) {
-//     super(props)
-
-//     this.state = {
-//       tabList: [],
-//       tabPanelArray: []
-//     }
-//   }
-
-//   componentDidMount = () => {
-//     console.log("WATERTABS", this.props.rivers)
-//     const contentMap = this.props.rivers.map( (r) => {
-//       return <TabPanel key={r.slug}><RiverTabPanel river={r}/></TabPanel>})
-//     const tabMap = this.props.rivers.map( (r, index) => {
-//       return <Tab key={r.slug}>{r.name}</Tab>})
-//     this.setState({tabList: tabMap, tabPanelArray: contentMap})
-//     console.log("WATERTABS PANELS", this.state.tabPanelArray)
-//   }
-  
-//   render() {
-//     return (
-//       <Tabs defaultIndex={0} defaultFocus={true}>
-//         <TabList>
-//           {this.state.tabList}
-//         </TabList>
-//         {this.state.tabPanelArray}
-//       </Tabs>
-//     )
-//   }
-// }

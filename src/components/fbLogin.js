@@ -1,14 +1,9 @@
-import React, {Component, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import mainReducer from '../reducers/mainReducer.js'
-import { combineReducers } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist'
+import { useDispatch } from 'react-redux';
 // TODO: switch from localStorage to indexedDB
 // this wass helpful re: thunk + devtools:
 // https://medium.com/@e_himmelfarb/implement-redux-devtools-extension-with-thunk-and-other-async-middleware-20e97100b2b0
-import thunk from 'redux-thunk'; // no changes here 😀
 import firebase, {journalRef, providers} from '../firebase'
 import 'firebase/auth';
 import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-auth';
@@ -55,16 +50,6 @@ import {compareJournals} from '../utils/utils.js'
    }
    useEffect (() => {
      console.log('GOTUSERID', user && user.uid)
-     let dbEntries;
-     if (user) {dbEntries = journalRef
-           .child(user.uid).on('value',
-                               (snapshot) =>console.log('JOURNALREF', snapshot.val()))}
-     // user ?
-     //   dispatch({type: 'CREATE_USER_SUCCESS', payload: user.uid}) :
-     //   dispatch({type: 'LOGOUT'});
-     // user &&
-     //   journalRef.child(user.uid).on('value',
-     //                                 (snapshot) =>console.log('JOURNALREF', snapshot.val()))
    })
 
   return (

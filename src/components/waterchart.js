@@ -9,7 +9,6 @@ import Segment from '../libraries/chartist-segmented-line.js'
 import Chartist from 'chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import { connect } from 'react-redux';
-import Rivers from  '../rivers.js';
 import {processGauge} from '../DataParsers.js'
 import {getSpot, isRiver} from '../utils/utils.js'
 // Add this function:
@@ -126,7 +125,7 @@ export class Waterchart extends Component {
     }
     
     if (this.props.checkUpdates) {
-      this.state.keepUpdating = setInterval(this.updateData, 150000) }
+      this.keepUpdating = setInterval(this.updateData, 150000) }
   }
 
   componentDidUpdate = () => {
@@ -145,14 +144,14 @@ export class Waterchart extends Component {
   }
   
   render() {
-    let series = [
-      {name: 'Gauge date in CMS',
-       data: this.state.seriesdata },
-      {
-        className: this.props.forceHidden ? 'hidden' : 'active',
-        data: []
-      }
-    ]
+    // let series = [
+    //   {name: 'Gauge date in CMS',
+    //    data: this.state.seriesdata },
+    //   {
+    //     className: this.props.forceHidden ? 'hidden' : 'active',
+    //     data: []
+    //   }
+    // ]
     return (
       <>
         { !this.props.forceHidden &&  this.props.seriesdata ?
