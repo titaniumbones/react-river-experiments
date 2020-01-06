@@ -56,7 +56,7 @@ import {compareJournals} from '../utils/utils.js'
     <>
     {
       user
-        ? <a href="#">Hello, {user.displayName}</a>
+        ? <button className="clear dark" href="#">Hello, {user.displayName}</button>
       : <button onClick={mySignIn}>Sign in with Google</button>
       }
     {
