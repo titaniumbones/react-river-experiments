@@ -22,33 +22,32 @@ function updateItemInArray(array, itemId, updateItemCallback) {
 
 
 function journalReducer(journalState=[], action) {
+  
   switch (action.type){
       case 'ADD_ENTRY':
     // TODO: should these be object properties instead?
     // might make it easier to update
-    const newJournal = journalState.entries.concat(action.payload)
-    return {entries: newJournal}
+    const newJournal = journalState.concat(action.payload)
+    return newJournal
   case 'UPDATE_ENTRY':
     // TODO: fix so that we iterate through and change the one entry
     // should be really easy but feels a bit unwieldy
-    const updatedEntries = journalState.entries.map( (entry) => {
+    const updatedEntries = journalState.map( (entry) => {
       if (entry.id === action.payload.id) {
         return action.payload
       }
       return entry 
     })
-    return {entries: updatedEntries}
+    return updatedEntries
   case 'DELETE_ENTRY':
-    // TODO: fix so that we iterate through and change the one entry
-    // should be really easy but feels a bit unwieldy
-    return {
-      entries: journalState.entries.filter( (entry) => {
-        if (entry.id === action.payload.id) {
-          return false
-        }
-        return true
-      })
-    }
+    console.log('DELETEENTRY', journalState)
+    const newState = journalState.filter( (entry) => {
+      if (entry.id === action.payload.id) {
+        return false
+      }
+      return true
+    })
+    return  newState
   default:
     return journalState
   }
