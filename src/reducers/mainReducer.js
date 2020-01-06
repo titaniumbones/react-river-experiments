@@ -1,18 +1,6 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer.js'
-const initialState = {
-  journal: {
-    entries: [
-      {spot: 'irvine', date: 'December 10, 2019', id: 235,
-       entry:'Moderate Level.  somewhat sticky hole at the bottom of three ledges, Mike flipped and the hole was big enough to hold a solo canoe.  Flippy hole at the river-right bottom of Triple Drop, flipped both me and Ian. River left, center both too low torun; pothole in trible drop river right clearly visible as a spouting rooster tail. Ledges clearly visible within the dam waterfall, deifnitely below a safe level for me to run.  Canyon section no harder than class II,but still continuous to the junction with the Gorge section.  Gorge fairly mellow, Chute at a good level.'}],
-    current: {spot:'', date:'', entry:'' }
-  },
-  charts: [],
-  current: [],
-  ui: {},
-  user: null
-}
-
+import {initialState } from './initialState.js'
 function updateObject(oldObject, newValues) {
   // Encapsulate the idea of passing a new object as the first parameter
   // to Object.assign to ensure we correctly copy data instead of mutating
