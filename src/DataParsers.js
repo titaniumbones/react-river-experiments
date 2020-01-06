@@ -131,7 +131,8 @@ async function processWOData (spot, latest) {
 
 async function processGauge (spot, date, mapper=gaugeDict) {
   console.log('PROCCESSGAUGE', spot.gaugeType, mapper[spot.gaugeType]);
-  return await mapper[spot.gaugeType](spot, date);
+  if (mapper[spot.gaugeType]) return await mapper[spot.gaugeType](spot, date);
+  return
 }
 
 
