@@ -1,0 +1,247 @@
+/* Alert and disclaimer etc */
+
+.alert {
+    display: none;
+    
+}
+
+.alert.active {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    gap: 3rem;
+    background-color:rgba(100,100,100,0.3);
+    padding:10px;
+    border: grey 2px solid;
+    border-radius: 10px;
+}
+
+.alert>* {
+    border: 4px red solid;
+    border-radius: 5px;
+    color: red;
+    padding: 10px;
+    
+}
+.alert>a.button {
+   grid-column:1/3;
+}
+
+ /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  /* padding: 6px 12px; */
+  border: 1px solid #ccc;
+  border-top: none;
+} 
+
+.tabcontent.active {
+display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 500px 1fr;
+
+}
+
+:root {
+    --bad-value: #f05b4f;
+    --good-value: #59922b;
+    --shoulder-value: rgb(40,125,125);
+    --too-small: rgb(30,30,30);
+    box-sizing: border-box;
+}
+
+/* flex layout */
+main#main {
+    /* margin-top: 300px; */
+    display: flex;
+    /* max-height: 800px; */
+    width:100%;
+    grid-column-template: 1fr 1fr 1fr;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap; 
+}
+
+#main > * {
+    flex-basis: 100%;
+    /* flex-grow: 1; */
+    flex-shrink: 1;
+    /* max-height: 400px; */
+}
+
+
+/* Use this selector to override the line style on a given series */
+.ct-series-a .ct-line {
+    /* Set the colour of this series line */
+    stroke:blue;
+    /* Control the thikness of your lines */
+    stroke-width: 3px;
+    /* Create a dashed line with a pattern */
+    /* stroke-dasharray: 4px 8px; */
+}
+
+/* This selector overrides the points style on line charts. Points on line charts are actually just very short strokes. This allows you to customize even the point size in CSS */
+.ct-series-a .ct-point {
+    /* Colour of your points */
+    stroke:red;
+    /* Size of your points */
+    stroke-width: 4px;
+    margin: 20px;
+    /* Make your points appear as squares */
+    /* stroke-linecap: square; */
+}
+.ct-target-line {
+    stroke: var(no-surf);
+    stroke-width: 2px;
+    stroke-dasharray: 4px;
+    shape-rendering: crispEdges;
+}
+
+/* threshold */
+.ct-line.ct-threshold-above, .ct-point.ct-threshold-above, .ct-bar.ct-threshold-above {
+    stroke: var(--good-value);
+}
+
+.ct-line.ct-threshold-below, .ct-point.ct-threshold-below, .ct-bar.ct-threshold-below {
+    stroke: var(--too-small);
+}
+
+.ct-area.ct-threshold-above {
+    fill: var(--good-value);
+}
+
+.ct-area.ct-threshold-below {     
+    fill: var(--too-small);
+}
+
+/* arrows and tooltips */
+.chartist-tooltip div.container {
+    padding: 10px;
+    opacity:1.0;
+    margin: 0;
+    border-radius:5px;
+    border: 3px solid rgba(125,125,125,0.5);
+}
+.chartist-tooltip .bad {
+    background-color: var(--bad-value);
+}
+.chartist-tooltip .good {
+    background-color: var(--good-value);
+}
+
+.chartist-tooltip .shoulder {
+    background-color: var(--shoulder-value);
+}
+
+.chartist-tooltip {
+    background-color: unset;
+    padding: 0px;
+    font-size: 1.2em;}
+
+/* tooltip bottom caret */
+.chartist-tooltip::before {
+    border-top-color: rgba(125,125,125,0.4);
+}
+.arrow {
+    transform:rotate(calc(var(--direction)*1deg));
+    display:inline-block;
+}
+
+.no-surf {
+    stroke: var(--no-surf);
+    fill: var(--no-surf);
+    opacity: 0.2;
+    pointer-events: none;
+}
+/* background */
+
+/* Segments!!!! */
+.ct-segment-shoulder .ct-point, .ct-segment-shoulder .ct-line {
+    stroke: var(--shoulder-value);
+    /* fill: var(--shoulder-value); */
+}
+
+.ct-segment-good .ct-point, .ct-segment-good .ct-line {
+    stroke: var(--good-value);
+    /* fill: var(--good-value); */
+}
+.ct-segment-bad .ct-point, .ct-segment-bad .ct-line {
+    stroke: var(--bad-value);
+    /* fill: var(--bad-value); */
+}
+
+.ct-segment-bad  .ct-area {
+    fill: var(--bad-value);
+}
+
+
+.ct-segment-good  .ct-area {
+    fill: var(--good-value);
+}
+.ct-segment-shoulder  .ct-area {
+    fill: var(--shoulder-value);
+}
+
+/* Positioning!! */
+.tabcontent .ct-chart {
+    margin: 0px;
+    /* position: unset; */
+    padding: 10px;
+    border: 3px grey solid;
+}
+
+.tabcontent .ct-chart svg {
+    /* position: unset; */
+}
+
+/* captions */
+figcaption { text-align: center; }
+/* testing */
+
+div.filler {
+min-height: 300px;
+background-color: (red, green);
+}
+
+.waterchart {
+    /* min-height: 400px; */
+}
+
+div.journal form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div.journal form .entry {
+    flex-grow: 10
+    
+}
