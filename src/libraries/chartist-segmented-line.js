@@ -318,6 +318,7 @@ export default function Segment (globalRoot, Chartist){
             'ct:value': [pathElement.data.value.x, pathElement.data.value.y].filter(Chartist.isNumeric).join(','),
             'ct:meta': Chartist.serialize(pathElement.data.meta)
           });
+          // console.log('NAN?' , pathElement) 
           // if (index == 2) {(console.log("2!!!!", pathElement.data.meta.direction))}
           this.eventEmitter.emit('draw', {
             type: 'point',
