@@ -1,24 +1,24 @@
-import { combineReducers } from 'redux';
+// import { combineReducers } from 'redux';
 import authReducer from './authReducer.js'
 import {initialState } from './initialState.js'
-function updateObject(oldObject, newValues) {
-  // Encapsulate the idea of passing a new object as the first parameter
-  // to Object.assign to ensure we correctly copy data instead of mutating
-  return Object.assign({}, oldObject, newValues)
-}
+// function updateObject(oldObject, newValues) {
+//   // Encapsulate the idea of passing a new object as the first parameter
+//   // to Object.assign to ensure we correctly copy data instead of mutating
+//   return Object.assign({}, oldObject, newValues)
+// }
 
-function updateItemInArray(array, itemId, updateItemCallback) {
-  const updatedItems = array.map(item => {
-    if (item.id !== itemId) {
-      // Since we only want to update one item, preserve all others as they are now
-      return item
-    }
-    // Use the provided callback to create an updated item
-    const updatedItem = updateItemCallback(item)
-    return updatedItem
-  })
-  return updatedItems
-}
+// function updateItemInArray(array, itemId, updateItemCallback) {
+//   const updatedItems = array.map(item => {
+//     if (item.id !== itemId) {
+//       // Since we only want to update one item, preserve all others as they are now
+//       return item
+//     }
+//     // Use the provided callback to create an updated item
+//     const updatedItem = updateItemCallback(item)
+//     return updatedItem
+//   })
+//   return updatedItems
+// }
 
 
 function journalReducer(journalState=[], action) {
@@ -90,7 +90,7 @@ export function journalFilterReducer (filterState=[], action) {
 export default function mainReducer(state=initialState, action) {
   // just gonna leave this blank for now
   // which is the same as `return undefined;`
-  console.log('REDUCING!')
+  // console.log('REDUCING!')
   return {
     
     charts: chartsReducer(state.charts, action),

@@ -24,7 +24,8 @@ function testGood (level, spotMeta) {
     .some( function (d)  {
       if ( (d[0] < level) && ( level < d[1])  ) {
         // console.log(d);
-        value = d[2]; return; }
+        value = d[2]; return value; }
+      return value
     });
   //console.log(value)
   return value
@@ -55,14 +56,14 @@ async function processWiskiData (spot, last) {
         start = moment(last).subtract(4, 'days').format('YYYY-MM-DD'),
         end = moment(last).format('YYYY-MM-DD'),
         url = `${baseURL + baseParams}&ts_id=${id}&from=${start}&to=${end}&dateformat=UNIX`;
-  console.log('KIWIPROCESS', spot.gaugeType, spot, url)
+  // console.log('KIWIPROCESS', spot.gaugeType, spot, url)
   return fetch(url)
       .then ( async (res) => {
-        console.log(res.headers.get('Content-Type'))
+        //console.log(res.headers.get('Content-Type'))
         return res.json()
       })
     .then ( (json) => {
-      console.log('PROCESSWISKIJSON', json);
+      // console.log('PROCESSWISKIJSON', json);
       return json[0].data
         .map( (item) => {
         let meta = {};
@@ -88,7 +89,7 @@ async function processWiskiData (spot, last) {
 
 // let proxy = 'https://cors-anywhere.herokuapp.com/';
 async function getWOJSON (stationData, last, needCors = true) {
-  console.log('RIVER', stationData)
+  // console.log('RIVER', stationData)
   let start = moment(last).subtract(4, 'days').format('YYYY-MM-DD'),
       end = moment(last).format('YYYY-MM-DD'),
       headers = {Origin: "localhost"},
@@ -96,11 +97,11 @@ async function getWOJSON (stationData, last, needCors = true) {
       cors = `https://hackinghistory.ca:9090/`, // `https://cors-anywhere.herokuapp.com/`
       url = `https://wateroffice.ec.gc.ca/services/real_time_graph/json/inline${params}`;
   if (needCors) {url = `${cors}${url}`;}
-  console.log(url);
+  // console.log(url);
   // let target = `${url}${params}`;
   return await fetch(url, {headers: headers})
     .then ( async (res) => {
-      console.log(res.headers.get('Content-Type'))
+      // console.log(res.headers.get('Content-Type'))
       return res.json()
     })
     .then ( (json) => { console.log(json);return json["47"].provisional} )
@@ -130,7 +131,7 @@ async function processWOData (spot, latest) {
 }
 
 async function processGauge (spot, date, mapper=gaugeDict) {
-  console.log('PROCCESSGAUGE', spot.gaugeType, mapper[spot.gaugeType]);
+  // console.log('PROCCESSGAUGE', spot.gaugeType, mapper[spot.gaugeType]);
   if (mapper[spot.gaugeType]) return await mapper[spot.gaugeType](spot, date);
   return
 }
@@ -144,7 +145,7 @@ class DataParser {
 
   async process(spot) {
     const m=this.gaugeMap
-    console.log(spot.gaugeType, m[spot.gaugeType]);
+    // console.log(spot.gaugeType, m[spot.gaugeType]);
     return await m[spot.gaugeType](spot);
 
   }

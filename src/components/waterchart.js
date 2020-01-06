@@ -23,7 +23,7 @@ function mapStateToProps(state, ownProps) {
         seriesdata = chartInfo && chartInfo.gaugeData,
         height = chartInfo && chartInfo.height,
         width = chartInfo && chartInfo.width
-  console.log('CHARTMAPPER', chartId, state.charts[chartId], ownProps)
+   // console.log('CHARTMAPPER', chartId, state.charts[chartId], ownProps)
   return {
     height: height,
     width: width,
@@ -88,7 +88,7 @@ const waterchartDefaultOptions =  {
 export class Waterchart extends Component {
   constructor(props) {
     super(props)
-    console.log("UPDATECHART IN CONSTRUCTOR", this.spotDef, this.props.date, this.props.spotslug, this.props)
+    // console.log("UPDATECHART IN CONSTRUCTOR", this.spotDef, this.props.date, this.props.spotslug, this.props)
     
     this.spotDef = getSpot(this.props.spotslug)
     this.chartRef = React.createRef();
@@ -104,10 +104,10 @@ export class Waterchart extends Component {
   deleteData = () => this.props.dispatch({type: 'DELETE_CHART',
                                           id: this.props.chartId})
   updateData = () => {
-    console.log("UPDATECHART", this.spotDef, this.props.date, this.props.spotslug, this.props)
+    // console.log("UPDATECHART", this.spotDef, this.props.date, this.props.spotslug, this.props)
     this.spotDef && isRiver(this.props.spotslug) && processGauge(this.spotDef, this.props.date || Date.now() )
       .then (data =>{
-        console.log('UPDATECHARTDATA', data)
+        // console.log('UPDATECHARTDATA', data)
         this.props.dispatch({type: 'UPDATE_CHART',
                              id: this.props.chartId,
                              payload: {gaugeData: data},
@@ -119,7 +119,7 @@ export class Waterchart extends Component {
 
   
   componentDidMount = () => {
-    console.log('DIDMOUNT', this.props.seriesdata)
+    //console.log('DIDMOUNT', this.props.seriesdata)
     if (!this.props.seriesdata) {
       this.updateData()
     }

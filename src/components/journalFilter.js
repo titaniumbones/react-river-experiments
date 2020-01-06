@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {initialState} from '../reducers/initialState.js'
 
 function mapStateToProps(state,ownProps) {
-  console.log('FILTERS?', state)
+  // console.log('FILTERS?', state)
   return {
     filters: state.journalFilter}
 }
@@ -24,7 +24,6 @@ export class JournalFilter extends React.Component {
   // : false ;
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('SUBMIT', this.state)
     let {rating, spot, last} = this.state;
     if (spot==='none')  spot=false;
     this.props.dispatch({
@@ -47,7 +46,7 @@ export class JournalFilter extends React.Component {
   };
 
   clearFilters = () => {
-    console.log('CLEARFILTER', initialState.journalFilter)
+    // console.log('CLEARFILTER', initialState.journalFilter)
     this.props.dispatch ({type: 'SET_FILTER', payload: initialState.journalFilter})}
 
   render() {

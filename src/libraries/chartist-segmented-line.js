@@ -7,10 +7,6 @@
  */
 
 export default function Segment (globalRoot, Chartist){
-  console.log("trying to generate chart");
-  // var window = globalRoot.window;
-  // var document = globalRoot.document;
-
   /**
    * Default options in line charts. Expand the code view to see a detailed list of options with comments.
    *
@@ -175,7 +171,7 @@ export default function Segment (globalRoot, Chartist){
           meta: Chartist.getMetaData(segment, valueIndex) //  value.meta// Chartist.getMetaData(series, valueIndex)
         });
       });
-    console.log(pathCoordinates, pathData);
+    // console.log(pathCoordinates, pathData);
 
   }
 
@@ -254,8 +250,8 @@ export default function Segment (globalRoot, Chartist){
             segParent = {seriesElement, rect:chartRect, axisX, axisY, data, seriesIndex};
       //segments.forEach( (seg, index) => drawSegment (seg, index, segParent));
       //data.normalized.series[seriesIndex].forEach(function(value, valueIndex) {
-      console.log(segments);
-      let testCase;
+      // console.log(segments);
+      // let testCase;
       // use arrow function to avoid binding `this`; segments aren't proper chartist objs
       segments.forEach( function makeSegElements (segment, segmentIndex)  {
         //console.log("seg name is defined?");
@@ -266,8 +262,8 @@ export default function Segment (globalRoot, Chartist){
           'ct:series-name': series.name
           //'ct:meta': Chartist.serialize(series.meta) // no meta data for this yet
         });
-        segment.points[0] === testCase ? console.log(`oh no! first element of segment ${segmentIndex} = the one before`) : testCase = segment.points[0];
-        console.log(testCase);
+        //segment.points[0] === testCase ? console.log(`oh no! first element of segment ${segmentIndex} = the one before`) : testCase = segment.points[0];
+        // console.log(testCase);
         // Use series class from series data or if not set generate one
         segmentElement.addClass([
           options.segmentClassPrefix + segment.name,
@@ -306,7 +302,7 @@ export default function Segment (globalRoot, Chartist){
       // Interpolating path where pathData will be used to annotate each path element so we can trace back the original
       // index, value and meta data
       var segmentPath = smoothing(segmentPathCoordinates, segmentPathData);
-        console.log(`SEGMENT PATH ELEMTNST HAS LENGTH ${segmentPath.pathElements.length}`)
+        //console.log(`SEGMENT PATH ELEMTNST HAS LENGTH ${segmentPath.pathElements.length}`)
       // If we should show points we need to create them now to avoid secondary loop
       // Points are drawn from the pathElements returned by the interpolation function
       // Small offset for Firefox to render squares correctly
@@ -322,7 +318,7 @@ export default function Segment (globalRoot, Chartist){
             'ct:value': [pathElement.data.value.x, pathElement.data.value.y].filter(Chartist.isNumeric).join(','),
             'ct:meta': Chartist.serialize(pathElement.data.meta)
           });
-          if (index == 2) {(console.log("2!!!!", pathElement.data.meta.direction))}
+          // if (index == 2) {(console.log("2!!!!", pathElement.data.meta.direction))}
           this.eventEmitter.emit('draw', {
             type: 'point',
             value: pathElement.data.value,

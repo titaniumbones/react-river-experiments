@@ -48,9 +48,9 @@ import {compareJournals} from '../utils/utils.js'
      dispatch({type: 'LOGOUT'});
      
    }
-   useEffect (() => {
-     console.log('GOTUSERID', user && user.uid)
-   })
+   // useEffect (() => {
+   //   console.log('GOTUSERID', user && user.uid)
+   // })
 
   return (
     <>

@@ -51,7 +51,7 @@ export class ChartistGraph extends Component {
   updateChart(config) {
     let Chartist = require('chartist');
     let { type, data } = config;
-    console.log('UPDATECHART RUNNING W NEW DATA', data)
+    //console.log('UPDATECHART RUNNING W NEW DATA', data)
     let options = config.options || {};
     let responsiveOptions = config.responsiveOptions || [];
     let event;

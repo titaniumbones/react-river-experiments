@@ -26,8 +26,8 @@ export class Journal extends React.Component {
 
   render() {
    
-    console.log("rendering main journal")
-    console.log('MAINJOURNALENTRIES', this.props.entries)
+    // console.log("rendering main journal")
+    // console.log('MAINJOURNALENTRIES', this.props.entries)
     
     return (
       <div className="journal">
@@ -48,13 +48,13 @@ class JournalAllEntries extends React.Component {
 
   }
   render() {
-    console.log("rerendering entries")
-    console.log('ALLENTRIES', this.props.entries)
+    // console.log("rerendering entries")
+    // console.log('ALLENTRIES', this.props.entries)
     if (this.props.entries && this.props.entries.length > 0){
       const visibleEntries = this.props.filters ?
             filterEntries(this.props.filters, this.props.entries) :
             this.props.entries
-      console.log('ALLENTRIESFILTERED', this.props.filters,visibleEntries)
+      // console.log('ALLENTRIESFILTERED', this.props.filters,visibleEntries)
       return (
       
         <div className="journal-entries">
@@ -67,7 +67,7 @@ class JournalAllEntries extends React.Component {
              <JournalRow key={dataObj.id} id={dataObj.id} spot={dataObj.spot}
                          date={dataObj.date} entry={dataObj.entry} rating={dataObj.rating}
                          showForm={false}/> )}
-          {this.props.entries.forEach( (entry, index) => console.log('MAPPINGENTRIES',entry, index))}
+          {/* {this.props.entries.forEach( (entry, index) => console.log('MAPPINGENTRIES',entry, index))} */}
         </div>
       
       )

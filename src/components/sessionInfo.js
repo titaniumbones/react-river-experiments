@@ -8,9 +8,7 @@ import Waterchart from '../components/waterchart.js'
 
 function getSpot (slug) {
   let value;
-  console.log("GETSPOT", slug)
   for (const r of Rivers) {
-    console.log('GETSPOT', r.slug, slug);
     if (r.slug === slug ) {value = r;}
   }
   return value;
