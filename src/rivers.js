@@ -76,10 +76,26 @@ const streetsville = {
           units: 'cms',
           id: null
         }]
+      },
+      minden = {
+        name: "Gull River",
+        gaugeType: null,
+        gaugeID: null,
+        //gaugeID: 11189042,
+        //gaugeID: 14389,
+        //gaugeID: 'Shand Dam Discharge',
+        "units": "cms",
+        slug: "minen",
+        points: {
+        },
+        minHeight: 7.8,
+        levels: [[0,7.8,"bad"], [7.8,8,"shoulder"], [8,8.4,"good"],[8.4,9,"shoulder"]],
+        sources: []
       }
 
 
-const Rivers =[elora, streetsville, upperCredit, irvine];
+
+const Rivers =[elora, streetsville, upperCredit, irvine, minden];
 
 export {streetsville as lowercredit}
 export default Rivers;
