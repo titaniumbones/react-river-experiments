@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ChartistGraph from 'react-chartist';
+//import ChartistGraph from '../../node_modules/react-chartist/index.js';
+import ChartistGraph from '../libraries/react-chartist.js'
 import moment from 'moment'
 // import {Resizable, ResizableBox} from 'react-resizable'
 // const Chartist=require( '../libraries/chartist-with-segments.js')
@@ -10,8 +11,7 @@ import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import { connect } from 'react-redux';
 import Rivers from  '../rivers.js';
 import {processGauge} from '../DataParsers.js'
-
-
+import {getSpot, isRiver} from '../utils/utils.js'
 // Add this function:
 // right now this is mostly irrelevant.
 // we don't set data here,
@@ -28,7 +28,9 @@ function mapStateToProps(state, ownProps) {
   return {
     height: height,
     width: width,
-    seriesdata: seriesdata
+    seriesdata: seriesdata,
+    updated: moment().format('HH:mm:ss'),
+    chartId: chartId
   };
 }
 
@@ -37,15 +39,6 @@ Segment(this || global, Chartist)
 
 
 
-function getSpot (slug) {
-  let value;
-  console.log("GETSPOT", slug)
-  for (const r of Rivers) {
-    console.log('GETSPOT', r.slug, slug);
-    if (r.slug === slug ) {value = r;}
-  }
-  return value;
-}
 
 
 function generateTooltip (meta, value) {
@@ -104,20 +97,23 @@ export class Waterchart extends Component {
     this.options = {...waterchartDefaultOptions,
                     height: this.props.height || waterchartDefaultOptions.height,
                     width: this.props.width || waterchartDefaultOptions.width}
-
+    this.state={
+      seriesdata: this.props.seriesdata
+    }
   }
 
   deleteData = () => this.props.dispatch({type: 'DELETE_CHART',
-                                          id:`${this.props.spotslug}_${this.props.date? moment(this.props.date).valueOf() : 'latest'}`})
+                                          id: this.props.chartId})
   updateData = () => {
     console.log("UPDATECHART", this.spotDef, this.props.date, this.props.spotslug, this.props)
-    this.spotDef && processGauge(this.spotDef, this.props.date)
+    this.spotDef && isRiver(this.props.spotslug) && processGauge(this.spotDef, this.props.date || Date.now() )
       .then (data =>{
         console.log('UPDATECHARTDATA', data)
         this.props.dispatch({type: 'UPDATE_CHART',
-                             id: `${this.props.spotslug}_${this.props.date? moment(this.props.date).valueOf() : 'latest'}`,
+                             id: this.props.chartId,
                              payload: {gaugeData: data},
                             });
+        //this.setState({seriesdata:data})
         // this.setState({rendered: true, gaugeData: data})
       })
   }
@@ -130,25 +126,28 @@ export class Waterchart extends Component {
     }
     
     if (this.props.checkUpdates) {
-      this.keepUpdating = setInterval(this.updateData(), 120000) }
+      this.state.keepUpdating = setInterval(this.updateData, 150000) }
   }
 
   componentDidUpdate = () => {
     console.log('DIDUPDATE')
-    if (this.chartRef.current &&
-        this.options.width !== this.chartRef.current.chart.clientWidth) {
+    //this.setState({seriesdata:this.props.seriesdata})
+    if (this.chartRef.current)
+      //console.log(this.chartRef.current)
+       //this.chartRef.current.update()
+      if (this.options.width !== this.chartRef.current.chart.clientWidth) {
       // update width and height somewhere
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.keepUpdating);
+    clearInterval(this.state.keepUpdating);
   }
   
   render() {
-    const series = [
+    let series = [
       {name: 'Gauge date in CMS',
-       data: this.props.seriesdata},
+       data: this.state.seriesdata },
       {
         className: this.props.forceHidden ? 'hidden' : 'active',
         data: []
@@ -158,14 +157,16 @@ export class Waterchart extends Component {
       <>
         { !this.props.forceHidden &&  this.props.seriesdata ?
           <div className="waterchart">
-          <ChartistGraph ref={this.chartRef} data={{series: series}}
-                         options={this.options} needsUpdate={this.props.forceHidden}
-                         type={this.type} className="chartist" />
-            <div className="buttons">
-              <button className="bg-primary" onClick={this.updateData}>Update Data</button>
+            <ChartistGraph ref={this.chartRef}
+                           id={this.props.chartId}
+                             options={this.options} needsUpdate={this.props.keepUpdating}
+                             type={this.type} className="chartist" />
+              <div className="buttons">
+                <button className="bg-primary" onClick={this.updateData}>Update Data</button>
               <button className="bg-error" onClick={this.deleteData}>Delete Data</button>
-            </div>
-          </div>:
+              </div>
+          </div> :
+
           <div className="waterchart empty">
             <h3>No Data Yet</h3>
             <button className="bg-primary" onClick={this.updateData}>Trigger Manual Update</button>
