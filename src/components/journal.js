@@ -11,7 +11,9 @@ import {compareJournals} from '../utils/utils.js'
 import {mapJournalToProps as mapStateToProps} from '../utils/stateMaps.js'
 import store from '../store.js'
 import { filterEntries} from '../utils/filters.jsx'
-
+import MomentUtils from '@date-io/moment';
+import SessionTimePicker from './picker.jsx'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 export class Journal extends React.Component {
   
@@ -30,6 +32,8 @@ export class Journal extends React.Component {
     // console.log('MAINJOURNALENTRIES', this.props.entries)
     
     return (
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <SessionTimePicker/>
       <div className="journal">
         <JournalForm submit="add"/>
         <JournalFilter/>
@@ -38,6 +42,8 @@ export class Journal extends React.Component {
           uid={this.props.uid}
           entries={this.props.entries}/>
       </div>
+      </MuiPickersUtilsProvider>
+
     )
   }
 }

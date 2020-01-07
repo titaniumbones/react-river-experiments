@@ -9,7 +9,26 @@ import firebase from '../firebase.js'
 import moment from 'moment'
 import {mapJournalToProps as mapStateToProps} from '../utils/stateMaps.js'
 import StarRating from './star-rating.jsx'
+import {
+  DatePicker,
+  TimePicker,
+  DateTimePicker,
+  KeyboardDateTimePicker,
+  MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
+import green from "@material-ui/core/colors/green";
+import { createMuiTheme } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/styles";
 
+const defaultMaterialTheme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+  typography: {
+    // Tell Material-UI what's the font-size on the html element is.
+    htmlFontSize: 10,
+  },
+});
 
 export class SelectSpot extends React.Component {
 
@@ -22,8 +41,7 @@ export class SelectSpot extends React.Component {
   handleChange = (event) => {
     const target = event.target;
     const value = target.type ==='checkbox' ? target.checked : target.value;
-    const name = target.name;
-    
+    const name = target.name;  
     this.setState({[name]: value})    
   }
   render () {
@@ -56,12 +74,13 @@ export class JournalForm extends React.Component {
     const {spot, date, entry, id, rating} = this.props
     this.state = {
       spot: spot || "grand",
-      date: date || moment().format('YYYY-MM-DD'),
-      entry: entry,
-      rating: rating,
+      date: date || moment().subtract(2, 'hours').minutes(0).valueOf(),
+      entry: entry || '',
+      rating: rating || false,
       id : id || uuid()
     }
   }
+  
   handleSubmit = (entry) => {
     // const uid = this.props.uid || 'anonymous'
     // console.log('FORMUPDATE', entry);
@@ -87,6 +106,9 @@ export class JournalForm extends React.Component {
     this.setState({[name]: value})    
   }
 
+  handleDateChange = (value) => {
+    this.setState({date: moment(value).valueOf()})
+  }
   onSubmit = (event) => {
     const {spot, date,entry,id, rating} = this.state;
     const info = {
@@ -111,11 +133,24 @@ export class JournalForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit}>
-      <fieldset>
+      <fieldset className="details">
         <SelectSpot onChange={this.handleChange} current={this.state.spot}/>
-        <label >
-          date:
-          <input name="date" type="text" value={this.state.date} onChange={this.handleChange}/>
+        {/* <label > */}
+        {/*   date: */}
+          
+        {/*   <input name="date" type="text" value={this.state.date} onChange={this.handleChange}/> */}
+        {/* </label> */}
+        <label>
+          date2:
+      <ThemeProvider theme={defaultMaterialTheme}>
+          <KeyboardDateTimePicker name="date" value={this.state.date}
+                                  onChange={this.handleDateChange}
+                                  autoOk={false}
+                                  format="YYYY/MM/DD HH:mm"
+                                  className="full-width"
+                                  minutesStep={15}
+          />
+      </ThemeProvider>
         </label>
         <label>
           Quality:
