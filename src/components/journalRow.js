@@ -8,7 +8,8 @@ import firebase from '../firebase.js'
 import {mapUserToProps as mapStateToProps} from '../utils/stateMaps.js'
 import StarRating from './star-rating.jsx'
 import {getSpot} from '../utils/utils.js'
-
+import Markdown from 'markdown-to-jsx'
+import moment from 'moment'
 
 class JournalRow extends React.Component {
   constructor(props) {
@@ -29,11 +30,15 @@ class JournalRow extends React.Component {
     this.setState({showForm: !this.state.showForm})
   }
   deleteEntry = () => {
-    firebase.database().ref(`journal/${this.props.uid}/${this.props.id}`).remove()
+
+    const doIt = window.confirm("Delete this item? This can't be undone.")
+    if (doIt) {
+      firebase.database().ref(`journal/${this.props.uid}/${this.props.id}`).remove()
     this.props.dispatch({
       type: 'DELETE_ENTRY',
       payload: {id: this.props.id}
     })}
+  }
 
   updateStars = (rating) => {
     rating= Number(rating)
@@ -74,7 +79,7 @@ class JournalRow extends React.Component {
           </div>
           <div className="meta">
           <div className="spot-field">{this.state.name}</div>
-          <div className="date-field">{this.props.date}</div>
+            <div className="date-field">{moment(this.props.date).format('MMM DD, YYYY')}</div>
             <StarRating
               numberOfStars="5"
               currentRating={this.props.rating || 0 }
@@ -82,7 +87,9 @@ class JournalRow extends React.Component {
             />
             
           </div>
-          <div className="journal-field">{this.props.entry}</div>
+          <div className="journal-field">
+            <Markdown>{this.props.entry || ''}</Markdown>
+          </div>
         </div>
         {this.state.showForm &&
          <JournalForm id={this.props.id}
