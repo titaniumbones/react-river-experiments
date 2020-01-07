@@ -162,12 +162,12 @@ export class JournalForm extends React.Component {
         </label>
       </fieldset>
         <fieldset  className="entry">
-      <label for="entry">
+      <label htmlFor="entry">
           What Happened?:          
       </label>
           <textarea name="entry" value={this.state.entry} onChange={this.handleChange}/>
         </fieldset>
-        <input className="submit" type="submit" value="Submit" tabindex="10"/>
+        <input className="submit" type="submit" value="Submit" tabIndex="10"/>
       </form>
     );
   }
