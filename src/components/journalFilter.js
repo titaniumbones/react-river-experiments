@@ -76,7 +76,7 @@ export class JournalFilter extends React.Component {
               onClick={this.setRating}
             />
           </label>
-          <input className="submit" type="submit" value="Filter Journal Entries" tabindex="10"/>
+          <input className="submit" type="submit" value="Filter Journal Entries" tabIndex="10"/>
         </form>
       </div>
   )

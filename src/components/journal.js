@@ -33,7 +33,6 @@ export class Journal extends React.Component {
     
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <SessionTimePicker/>
       <div className="journal">
         <JournalForm submit="add"/>
         <JournalFilter/>
