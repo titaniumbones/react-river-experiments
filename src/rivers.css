@@ -326,13 +326,36 @@ div.journal-row>.entry>* {
     margin: 1em;
 }
 
+div.journal-row>form>fieldset.entry {
+    min-height: 250px;
+}
+
+form>fieldset.details {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+fieldset.details .picker-container {
+    width: 100%;}
+
 div.journal-row>.entry>.buttons {
     display:flex;
     flex-direction: column;
     gap: 1em;
 }
 
+.MuiTextField-root.full-width {
+    width: 100%;
+    font-size: 1em;
+    }
 
+
+.MuiTextField-root.full-width input.MuiInput-input {
+    font-size: 1.4em;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px grey solid;}
 
 /* div.journal .session-data { */
 /*     height: 30em; */
