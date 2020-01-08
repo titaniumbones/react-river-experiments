@@ -22,13 +22,15 @@ class JournalRow extends React.Component {
     }
   }
   
-  showInfo = () => {
+   toggleInfo = () => {
     this.setState({infoShown: !this.state.infoShown})
   }
+
 
   toggleForm = () => {
     this.setState({showForm: !this.state.showForm})
   }
+
   deleteEntry = () => {
 
     const doIt = window.confirm("Delete this item? This can't be undone.")
@@ -63,7 +65,7 @@ class JournalRow extends React.Component {
         <div className ="entry">
           <div className="buttons">
             <button className ="button success"
-                    onClick={this.showInfo}>
+                    onClick={this.toggleInfo}>
               {this.state.infoShown ?
                `Hide Graphs` : `Show Graphs`}
             </button>
@@ -96,8 +98,11 @@ class JournalRow extends React.Component {
                       spot={this.props.spot}
                       entry={this.props.entry}
                       date={this.props.date}
-                      rating={this.props.rating}  
-                      submit="update"/> }
+                      rating={this.props.rating}
+                      retainEntryText={true}
+                      submit="update"
+                      submitCallback={this.toggleForm}
+         /> }
         <SessionInfo forceHidden={!this.state.infoShown} className={this.state.infoShown ? "active" : "hidden"} spot={this.props.spot} date={this.props.date}/>
       </div>
     )
