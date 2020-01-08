@@ -1,3 +1,6 @@
+// so simple! but keepineg here in case I change state structure later
+export const userSelector  = (state) => state.user?.user;
+
 export function mapJournalToProps(state) {
   const loggedIn = state.user?.user
   return {
