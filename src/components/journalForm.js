@@ -121,7 +121,8 @@ export class JournalForm extends React.Component {
     };
     event.preventDefault();
     this.handleSubmit(info)
-    this.setState({entry: ''})
+    this.props.retainEntryText || this.setState({entry:''});
+    (typeof(this.props.submitCallback)==='function') && this.props.submitCallback()
   }
 
   setRating = rating => {
