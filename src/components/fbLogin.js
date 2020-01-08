@@ -10,6 +10,28 @@ import withFirebaseAuth, { WrappedComponentProps } from 'react-with-firebase-aut
 import {store} from '../store.js'
 import {compareJournals} from '../utils/utils.js'
 
+
+function LoginButton (props) {
+  const dispatch = useDispatch();
+  async function mySignIn () {
+    props.providerFn().then( (result) => {
+      // console.log('STOREATSIGNIN', store.getState())
+      const newId = result.user?.uid;
+      
+      newId && dispatch({type: 'CREATE_USER_SUCCESS', payload: newId})
+      journalRef
+        .child(newId)
+        .on('value', (snapshot) => {
+          compareJournals(store.getState().journal, snapshot.val())
+        })
+    })
+  }
+  return (
+    <button onClick={mySignIn}>Sign in with {props.providerName}</button>
+  )
+}
+
+// I'll need these props later on I guess, in an abstracted login form ocmponent
  function FbLogin ({
   /** These props are provided by withFirebaseAuth HOC */
   signInWithEmailAndPassword,
@@ -29,43 +51,31 @@ import {compareJournals} from '../utils/utils.js'
    const dispatch = useDispatch();
    //const user = useSelector(state => state.user);
 
-   async function mySignIn () {
-     signInWithGoogle().then( (result) => {
-       // console.log('STOREATSIGNIN', store.getState())
-       const newId = result.user?.uid;
-       
-       newId && dispatch({type: 'CREATE_USER_SUCCESS', payload: newId})
-       journalRef
-         .child(newId)
-         .on('value', (snapshot) => {
-           compareJournals(store.getState().journal, snapshot.val())
-         })
-     })
-   }
-
    async function mySignOut () {
      signOut()
      dispatch({type: 'LOGOUT'});
      
    }
+   // const providers = [[signInWithGoogle, "Google"],[signInWithEmailAndPassword, "Email"] ]
+   
+   const providers = [[signInWithGoogle, "Google"]]
    // useEffect (() => {
    //   console.log('GOTUSERID', user && user.uid)
    // })
 
   return (
+    
     <>
-    {
-      user
-        ? <button className="clear dark" href="#">Hello, {user.displayName}</button>
-      : <button onClick={mySignIn}>Sign in with Google</button>
+      { user ?
+        <>
+          <button className="clear dark" href="#">Hello, {user.displayName}</button>
+          <button className="bg-dark text-light" onClick={mySignOut}>Sign out</button>
+        </>
+        : providers.map( ([p, n]) => <LoginButton key={n} providerFn={p} providerName={n}/>) 
       }
-    {
-      user && 
-        <button className="bg-dark text-light" onClick={mySignOut}>Sign out</button>
-    }
-    </>)
-  
-}
+    </>
+    )
+ }
 
 export default withFirebaseAuth({
   providers: providers,
