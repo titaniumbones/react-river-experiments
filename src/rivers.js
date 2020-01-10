@@ -65,7 +65,7 @@ const streetsville = {
         "units": "cms",
         slug: "uppercredit",
         points: {
-          putin: [43.7962886,-80.0139645,15],
+          putin: [43.7962886,-80.0139645],
           takeout: [43.802320,-79.993910]
         },
         minHeight: 0.75,
