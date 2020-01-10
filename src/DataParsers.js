@@ -49,7 +49,7 @@ async function processWiskiData (spot, last) {
 
   // note we are nto actually using STATION ids, but instead TIMESERIES ids
   // this can be confusing & messes w/ the data model a bit. 
-  const baseURL = spot.gaugeType === 'cvc' ? `https://waterinfo.cvc.ca/` : `https://waterdata.grandriver.ca/`,
+  const baseURL = spot.gaugeType === 'cvc' ? `httpx://waterinfo.cvc.ca/` : `https://waterdata.grandriver.ca/`,
         baseParams = `KiWIS/KiWIS?service=kisters&type=queryServices&request=getTimeseriesValues&datasource=0&format=dajson`,
         id = spot.gaugeID,
         start = moment(last).subtract(4, 'days').format('YYYY-MM-DD'),
