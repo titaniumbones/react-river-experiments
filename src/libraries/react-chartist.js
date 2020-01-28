@@ -16,8 +16,10 @@ function mapStateToProps (state, ownProps) {
 export class ChartistGraph extends Component {
   constructor(props) {
     super(props)
+    const last = this.props.series?.data && this.props.data.slice(-1)[0]
     this.state = {
       type: '',
+      //charttitle: this.props.seriesdata ? `Last Reading: `
     }
   }
 
@@ -82,9 +84,12 @@ export class ChartistGraph extends Component {
       })
     ));
     return (
-      <div className={`ct-chart ${className || ''}`} ref={(ref) => this.chart = ref } style={style}>
-         {childrenWithProps}
-      </div>
+      <>
+        {this.props.chartTitle && <h2>{this.props.chartTitle}</h2>}
+        <div className={`ct-chart ${className || ''}`} ref={(ref) => this.chart = ref } style={style}>
+          {childrenWithProps}
+        </div>
+      </>
     )
   }
 }
