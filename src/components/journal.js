@@ -13,6 +13,7 @@ import store from '../store.js'
 import { filterEntries} from '../utils/filters.jsx'
 import MomentUtils from '@date-io/moment';
 import SessionTimePicker from './picker.jsx'
+import JournalCounter from './journalCounter.js'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 export class Journal extends React.Component {
@@ -33,16 +34,19 @@ export class Journal extends React.Component {
     
     return (
       <MuiPickersUtilsProvider utils={MomentUtils}>
-      <div className="journal">
-        <JournalForm submit="add"/>
-        <JournalFilter/>
-        <JournalAllEntries
-          filters={this.props.filters}
-          uid={this.props.uid}
-          entries={this.props.entries}/>
-      </div>
+        <div className="journal">
+          {/* <RainForecast/> */}
+          <JournalForm submit="add"/>
+          <JournalFilter/>
+          <JournalCounter/>
+          <JournalAllEntries
+            filters={this.props.filters}
+            uid={this.props.uid}
+            entries={this.props.entries}/>
+        </div>
       </MuiPickersUtilsProvider>
 
+      
     )
   }
 }
