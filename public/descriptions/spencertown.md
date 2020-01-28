@@ -1,0 +1,7 @@
+Unusual urban whitewater experience on a seasonal creek that runs straight through downtown Dundas near Hamilton. Nearly-continuous whitewater with few eddy opportunities,; mostly class II-III with some class IV moves and features at higher levels.  The creekbed is shallow and narrow, with a rocky bottom and a very strong tendency to collect wood. Stream banks are not generally very high but often steep and unwieldy to hike along. It's important to scout the whole stream before running, and a saw is an essential pice of equipment as fallen trees often block the full width of the stream, creating potentially lethal strainers and other hazards. 
+
+Notable Class III/IV drops are almost all boof moves created by concrete steps on the river bottom, generally near overpass bridges. At higher levels substantial holes form below some of these drops and the boof becomes more challenging. In one section the river bottom has been entirely concreted over, creating an unusual, skateboard-park slide. Much of the fun of the route, though, comes from the constantly-changing hazards posed by wood in the stream. Spotting and navigating these hazards requires careful attention and gives the stream a lively, engaging feel. Overall, a lot of fun.
+
+Put in near Fletcher Moss Park, slighly sketchy/unreliable takeout near the apandoned parking lot at the former locatio nof Canadian Tire.
+
+Separated from the upper section of Spencer Creek by an unrunnable tunnel section -- **DO NOT ATTEMPT TO LINK THESE SECTIONS**, as serious injury is very likely. 

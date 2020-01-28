@@ -69,12 +69,31 @@ const streetsville = {
           takeout: [43.802320,-79.993910]
         },
         minHeight: 0.75,
-        levels: [[0,0.75,"bad"], [0.75, 0.78,"shoulder"], [0.78, 1.1,"good"],[1.1,100,"shoulder"]],
+        levels: [[0,0.61,"bad"], [0.61, 0.75,"shoulder"], [0.65, 0.78,"good"],[0.78,0.87,"shoulder"],[0.87,1.4,"bad"]],
         sources: [{
           type: 'cvc',
-          timeseries: 1452210,
+          timeseries: 14522010,
           units: 'cms',
           id: null
+        }]
+      },
+      spencer_town = {
+        name: "Spencer's Creek, Town Section",
+        slug: "spencertown",
+        "gaugeType": "wateroffice",
+        "gaugeID": "02HB007",
+        "units": "cms",
+        "levels": [[0,7,"bad"], [7,9,"shoulder"], [9,15,"good"],[15,100,"bad"]],
+        "minHeight": 8,
+        points: {
+          putin: [43.7962886,-80.0139645],
+          takeout: [43.802320,-79.993910]
+        },
+        sources: [{
+          type: 'wateroffice',
+          id: "02HB007",
+          timeseries: 27,
+          units: 'cms'
         }]
       },
       minden = {
@@ -94,8 +113,8 @@ const streetsville = {
       }
 
 
+const lowercredit =  streetsville
+const Rivers =[elora, streetsville, upperCredit, irvine, minden, spencer_town];
 
-const Rivers =[elora, streetsville, upperCredit, irvine, minden];
-
-export {streetsville as lowercredit}
+export {upperCredit, irvine, lowercredit}
 export default Rivers;
