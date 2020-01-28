@@ -13,7 +13,8 @@ export const journalSelector = (state) => {
 export function mapJournalToProps(state) {
   const loggedIn = state.user?.user
   return {
-    entries: loggedIn ? state.journal[loggedIn] : state.journal.anonymous,
+    entries: loggedIn
+      ? state.journal[loggedIn] : state.journal.anonymous,
     uid: loggedIn,
     filters: state.journalFilter
   };
