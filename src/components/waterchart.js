@@ -96,11 +96,15 @@ export class Waterchart extends Component {
     this.options = {...waterchartDefaultOptions,
                     height: this.props.height || waterchartDefaultOptions.height,
                     width: this.props.width || waterchartDefaultOptions.width}
+    const last = this.props.seriesdata && this.props.seriesdata.slice(-1)[0]
     this.state={
-      seriesdata: this.props.seriesdata
+      seriesdata: this.props.seriesdata,
+      chartTitle: last ?  `Updated ${moment(last.x).format('HH:mm')}; Current Level ${ Math.round(last.y * Math.pow(10, 2)) / Math.pow(10, 2)}`
+        :"Updating.."
+   
     }
   }
-
+  updatingText = "Updating..."
   deleteData = () => this.props.dispatch({type: 'DELETE_CHART',
                                           id: this.props.chartId})
   updateData = () => {
@@ -112,6 +116,9 @@ export class Waterchart extends Component {
                              id: this.props.chartId,
                              payload: {gaugeData: data},
                             });
+        const lastData = data.slice(-1)[0];
+        this.setState({chartTitle:
+                       `Last Reading ${moment(lastData.x).format('HH:mm') } Current Level: ${ Math.round(lastData.y * Math.pow(10, 2)) / Math.pow(10, 2)} `} )
         //this.setState({seriesdata:data})
         // this.setState({rendered: true, gaugeData: data})
       })
@@ -156,10 +163,12 @@ export class Waterchart extends Component {
       <>
         { !this.props.forceHidden &&  this.props.seriesdata ?
           <div className="waterchart">
+            {/* <h2>{this.state.chartTitle}</h2> */}
             <ChartistGraph /* ref={this.chartRef} */
+                           chartTitle={this.state.chartTitle}
                            id={this.props.chartId}
-                             options={this.options} needsUpdate={this.props.keepUpdating}
-                             type={this.type} className="chartist" />
+                           options={this.options} needsUpdate={this.props.keepUpdating}
+                           type={this.type} className="chartist" />
               <div className="buttons">
                 <button className="bg-primary" onClick={this.updateData}>Update Data</button>
               <button className="bg-error" onClick={this.deleteData}>Delete Data</button>
