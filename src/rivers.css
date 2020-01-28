@@ -240,7 +240,8 @@ background-color: (red, green);
 .waterchart {
     /* min-height: 400px; */
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-areas: "headline headline headline " "chart chart  buttons";
+    /* grid-template-rows: 2.5em 1fr; */
 }
 
 .waterchart
@@ -248,16 +249,23 @@ background-color: (red, green);
     margin-top: 1em;
     gap: 2em;
 }
+.waterchart>h2 {
+    grid-area: "headline";
+}
 .waterchart .buttons {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2em;
+    grid-area: buttons
+}
+.waterchart .chartist {
+    grid-area: chart
 }
 
 @media screen and (max-width: 599px) {
     .waterchart {
-        grid-template-columns: 1fr;
+        grid-template-areas: "headline" "chart" "buttons";
     }
     .waterchart .buttons {
         flex-direction: row;
