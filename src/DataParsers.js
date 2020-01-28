@@ -153,4 +153,4 @@ class DataParser {
 }
 
 export default DataParser
-export {processGauge, getWOJSON}
+export {processGauge, getWOJSON, testGood}
