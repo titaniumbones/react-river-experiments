@@ -4,7 +4,7 @@ import '../index.css';
 import moment from 'moment'
 import { connect } from 'react-redux';
 import JournalForm from './journalForm.js'
-import JournalRow from './journalRow.js'
+import JournalRow from './hookJournalRow.jsx'
 import JournalFilter from './journalFilter.js'
 import  {journalRef,} from '../firebase'
 import {compareJournals} from '../utils/utils.js'
