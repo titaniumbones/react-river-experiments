@@ -5,6 +5,7 @@ import WaveTabs from './WaveTabs.js'
 import MarkdownFromUrl from './markdownFromUrl.js'
 import Journal from './journal.js'
 import FbLogin from './fbLogin.js'
+import LevelCounter from './levelCounter.jsx'
 import {
   Router,
   Link
@@ -40,6 +41,7 @@ function MainStructure ({
       <Link to="rivers">Rivers: Current</Link>
       <Link to="waves">Waves: Current</Link>
       <Link to="journal">Journal</Link>
+      <Link to="counter">Counter!</Link>
       <Link to="about">About</Link>
       <div className="nav-right">
         <FbLogin />
@@ -51,6 +53,7 @@ function MainStructure ({
       <WaterTabs path="rivers/*" rivers={Rivers}/>
       <WaveTabs path="waves/*" />
       <Journal path="journal" rivers={Rivers}/>
+      <LevelCounter path="counter"/>
       <MarkdownFromUrl path="about" url="descriptions/about.md"/>
       </Router>
       </>
