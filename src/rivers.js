@@ -20,7 +20,7 @@ const streetsville = {
           "putin": [43.702321,-80.445578] ,
           "takeout": [43.662701, -80.453265] 
         },
-        "levels": [[0,4.6,"bad"], [4.6,8,"shoulder"], [8,50,"good"],[50,100,"shoulder"]],
+        "levels": [[0,6.5,"bad"], [6.5,8,"shoulder"], [8,50,"good"],[50,80,"shoulder"],[80,200,"bad"]],
         "minHeight": 4.6,
         sources: [
           {type: 'grca',
